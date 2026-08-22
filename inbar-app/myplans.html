@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اینبار | پلن‌های من</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            color: #1a2332;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .header .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #1a2332;
+        }
+
+        .header .back-btn:hover {
+            background: #f0f4f8;
+            border-color: #6c5ce7;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .header h1 span {
+            color: #6c5ce7;
+        }
+
+        .header .create-btn {
+            margin-right: auto;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazir', sans-serif;
+            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.2);
+        }
+
+        .header .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.3);
+        }
+
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 4px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+        }
+
+        .tabs .tab {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazir', sans-serif;
+            background: transparent;
+            color: #a0aec0;
+        }
+
+        .tabs .tab.active {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.2);
+        }
+
+        .tabs .tab:hover:not(.active) {
+            background: #f0f4f8;
+            color: #4a5568;
+        }
+
+        .tabs .tab .tab-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0 8px;
+            border-radius: 50px;
+            font-size: 11px;
+            margin-right: 4px;
+        }
+
+        .tabs .tab.active .tab-badge {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* ===== PLAN CARDS ===== */
+        .plan-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .plan-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 18px 18px 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .plan-card.active::before {
+            background: linear-gradient(180deg, #48bb78, #38a169);
+        }
+
+        .plan-card.inactive::before {
+            background: #e2e8f0;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(108, 92, 231, 0.06);
+            border-color: #e2e8f0;
+        }
+
+        .plan-card .plan-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .plan-card .plan-name {
+            font-size: 17px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .plan-card .plan-status {
+            font-size: 11px;
+            padding: 2px 14px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-family: 'Vazir', sans-serif;
+            flex-shrink: 0;
+        }
+
+        .plan-card .plan-status.active {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .plan-card .plan-status.inactive {
+            background: #f1f5f9;
+            color: #94a3b8;
+        }
+
+        .plan-card .plan-status.expired {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .plan-card .plan-info {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .plan-card .plan-info .pi-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .plan-card .plan-steps-preview {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            margin-top: 4px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .plan-card .plan-steps-preview .step-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            background: #f7fafc;
+            color: #a0aec0;
+            transition: all 0.3s;
+        }
+
+        .plan-card .plan-steps-preview .step-dot.filled {
+            border-color: #6c5ce7;
+            background: #edeafb;
+            color: #6c5ce7;
+        }
+
+        .plan-card .plan-steps-preview .step-dot.treasure {
+            border-color: #f6ad55;
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .plan-card .plan-steps-preview .step-dot.more {
+            border: none;
+            background: transparent;
+            font-size: 12px;
+            color: #a0aec0;
+        }
+
+        .plan-card .plan-steps-preview .step-line {
+            width: 12px;
+            height: 2px;
+            background: #e2e8f0;
+            border-radius: 2px;
+        }
+
+        .plan-card .plan-steps-preview .step-line.filled {
+            background: #6c5ce7;
+        }
+
+        .plan-card .plan-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .plan-card .plan-footer .plan-participants {
+            font-size: 13px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .plan-card .plan-footer .plan-participants span {
+            color: #1a2332;
+            font-weight: 700;
+        }
+
+        .plan-card .plan-footer .plan-rank {
+            font-size: 12px;
+            padding: 2px 12px;
+            border-radius: 50px;
+            background: #f0f4f8;
+            color: #4a5568;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: #fff;
+            border-radius: 20px;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .empty-state .empty-title {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .empty-state .empty-desc {
+            font-size: 14px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 4px;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #fff;
+            border-radius: 28px;
+            padding: 28px 24px 24px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.2);
+            animation: modalIn 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalIn {
+            from {
+                transform: scale(0.9) translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-box .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .modal-box .modal-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .modal-box .modal-header .modal-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: #f0f4f8;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #4a5568;
+        }
+
+        .modal-box .modal-header .modal-close:hover {
+            background: #fee2e2;
+            color: #fc8181;
+        }
+
+        /* ===== MODAL MAP WITH LINES ===== */
+        .modal-map {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .modal-step {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 14px;
+            padding: 4px 0;
+            position: relative;
+        }
+
+        .modal-step .ms-line-wrap {
+            position: relative;
+            width: 40px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 50px;
+        }
+
+        .modal-step .ms-line-wrap .ms-line {
+            position: absolute;
+            top: 34px;
+            bottom: -6px;
+            width: 3px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            transition: background 0.5s;
+        }
+
+        .modal-step .ms-line-wrap .ms-line.filled {
+            background: linear-gradient(180deg, #6c5ce7, #a29bfe);
+        }
+
+        .modal-step:last-child .ms-line-wrap .ms-line {
+            display: none;
+        }
+
+        .modal-step .ms-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 3px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            background: #f7fafc;
+            color: #a0aec0;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+
+        .modal-step .ms-circle.filled {
+            border-color: #6c5ce7;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.2);
+        }
+
+        .modal-step .ms-circle.treasure {
+            border-color: #f6ad55;
+            background: linear-gradient(135deg, #f6ad55, #ed8936);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(237, 137, 54, 0.25);
+        }
+
+        .modal-step .ms-circle .ms-icon {
+            font-size: 14px;
+        }
+
+        .modal-step .ms-info {
+            flex: 1;
+            padding: 2px 0;
+        }
+
+        .modal-step .ms-info .ms-label {
+            font-size: 12px;
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+            transition: color 0.3s;
+        }
+
+        .modal-step .ms-info .ms-value {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .modal-step.filled .ms-info .ms-label {
+            color: #6c5ce7;
+        }
+
+        .modal-step.treasure-step .ms-info .ms-label {
+            color: #d97706;
+        }
+
+        /* ===== MODAL FOOTER ===== */
+        .modal-box .modal-footer {
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-box .modal-footer .mf-label {
+            font-size: 13px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .modal-box .modal-footer .mf-value {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .header .create-btn {
+                font-size: 12px;
+                padding: 6px 14px;
+            }
+
+            .plan-card {
+                padding: 14px 14px 12px;
+            }
+
+            .plan-card .plan-name {
+                font-size: 15px;
+            }
+
+            .modal-box {
+                padding: 20px 16px 18px;
+                border-radius: 20px;
+            }
+
+            .modal-step .ms-circle {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+
+            .modal-step .ms-line-wrap {
+                width: 34px;
+                min-height: 42px;
+            }
+
+            .modal-step .ms-line-wrap .ms-line {
+                top: 28px;
+                bottom: -4px;
+            }
+
+            .modal-step .ms-info .ms-value {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .modal-step .ms-circle {
+                width: 28px;
+                height: 28px;
+                font-size: 11px;
+            }
+
+            .modal-step .ms-line-wrap {
+                width: 30px;
+                min-height: 36px;
+            }
+
+            .modal-step .ms-line-wrap .ms-line {
+                top: 24px;
+                bottom: -2px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <button class="back-btn" onclick="window.location.href='host-home.html'">→</button>
+            <h1>📋 <span>پلن</span>‌های من</h1>
+            <button class="create-btn" onclick="window.location.href='create-plan.html'">➕ جدید</button>
+        </div>
+
+        <!-- ===== TABS ===== -->
+        <div class="tabs">
+            <button class="tab active" data-tab="active" onclick="switchTab('active')">
+                🔥 فعال
+                <span class="tab-badge" id="activeCount">۳</span>
+            </button>
+            <button class="tab" data-tab="all" onclick="switchTab('all')">
+                📋 همه
+                <span class="tab-badge" id="allCount">۵</span>
+            </button>
+            <button class="tab" data-tab="inactive" onclick="switchTab('inactive')">
+                ⏸️ غیرفعال
+                <span class="tab-badge" id="inactiveCount">۲</span>
+            </button>
+        </div>
+
+        <!-- ===== PLAN LIST ===== -->
+        <div class="plan-list" id="planList">
+            <!-- توسط JS پر میشه -->
+        </div>
+
+    </div>
+
+    <!-- ===== MODAL ===== -->
+    <div class="modal-overlay" id="planModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modalTitle">🗺️ گنج قهوه</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+
+            <div class="modal-map" id="modalMap">
+                <!-- توسط JS پر میشه -->
+            </div>
+
+            <div class="modal-footer">
+                <span class="mf-label">👥 شرکت‌کنندگان</span>
+                <span class="mf-value" id="modalParticipants">۱۲ نفر</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        //  DATA
+        // ================================================================
+        const stepIcons = {
+            invite: '📨',
+            visit: '📊',
+            instagram: '📷',
+            order: '🛒',
+            order_amount: '💰',
+            order_item: '🎯'
+        };
+
+        const stepLabels = {
+            invite: 'دعوت',
+            visit: 'مراجعه',
+            instagram: 'دنبال کردن',
+            order: 'سفارش',
+            order_amount: 'سفارش بیش از',
+            order_item: 'سفارش آیتم'
+        };
+
+        // ===== پلن نمونه: گنج قهوه (۱۰ مرحله‌ای) =====
+        const treasurePlan = {
+            id: 999,
+            name: '🗺️ گنج قهوه',
+            status: 'active',
+            rank: 'gold',
+            participants: 12,
+            startDate: '۱۴۰۴/۰۱/۰۱',
+            endDate: '۱۴۰۴/۰۲/۱۵',
+            steps: [
+                { type: 'invite', count: 3 },
+                { type: 'visit', count: 2 },
+                { type: 'order' },
+                { type: 'instagram', username: 'cafe_mizban' },
+                { type: 'visit', count: 3 },
+                { type: 'order_amount', amount: 50000 },
+                { type: 'invite', count: 2 },
+                { type: 'order_item', item: 'قهوه اسپرسو' },
+                { type: 'visit', count: 2 },
+                { type: 'order' }
+            ],
+            prize: {
+                type: 'custom',
+                details: { text: 'یک قهوه ویژه + دسر رایگان' }
+            },
+            createdAt: new Date().toISOString()
+        };
+
+        // ===== پلن‌های دیگر =====
+        const samplePlans = [{
+            id: 1,
+            name: '☕ قهوه رایگان',
+            status: 'active',
+            rank: 'bronze',
+            participants: 24,
+            startDate: '۱۴۰۴/۰۱/۰۵',
+            endDate: '۱۴۰۴/۰۲/۰۵',
+            steps: [
+                { type: 'visit', count: 3 },
+                { type: 'order' },
+                { type: 'instagram', username: 'cafe_mizban' }
+            ],
+            prize: {
+                type: 'discount',
+                details: { percent: 20 }
+            }
+        }, {
+            id: 2,
+            name: '🎁 بسته غافلگیری',
+            status: 'active',
+            rank: 'silver',
+            participants: 8,
+            startDate: '۱۴۰۴/۰۱/۱۵',
+            endDate: '۱۴۰۴/۰۲/۲۰',
+            steps: [
+                { type: 'invite', count: 5 },
+                { type: 'order_amount', amount: 100000 },
+                { type: 'visit', count: 2 }
+            ],
+            prize: {
+                type: 'rank',
+                details: { rank: 3 }
+            }
+        }, {
+            id: 3,
+            name: '📚 کتاب رایگان',
+            status: 'active',
+            rank: 'gold',
+            participants: 5,
+            startDate: '۱۴۰۴/۰۱/۲۰',
+            endDate: '۱۴۰۴/۰۲/۱۰',
+            steps: [
+                { type: 'order_item', item: 'کتاب هنر' },
+                { type: 'visit', count: 2 },
+                { type: 'instagram', username: 'cafe_book' }
+            ],
+            prize: {
+                type: 'custom',
+                details: { text: 'یک کتاب هنر به انتخاب شما' }
+            }
+        }, {
+            id: 4,
+            name: '🎵 بلیت کنسرت',
+            status: 'inactive',
+            rank: 'platinum',
+            participants: 0,
+            startDate: '۱۴۰۳/۱۲/۰۱',
+            endDate: '۱۴۰۴/۰۱/۰۱',
+            steps: [
+                { type: 'visit', count: 5 },
+                { type: 'order_amount', amount: 200000 },
+                { type: 'invite', count: 3 }
+            ],
+            prize: {
+                type: 'custom',
+                details: { text: 'بلیت کنسرت ماه' }
+            }
+        }, {
+            id: 5,
+            name: '🌟 شب موسیقی',
+            status: 'inactive',
+            rank: 'diamond',
+            participants: 0,
+            startDate: '۱۴۰۳/۱۱/۱۵',
+            endDate: '۱۴۰۳/۱۲/۱۵',
+            steps: [
+                { type: 'order' },
+                { type: 'visit', count: 3 },
+                { type: 'instagram', username: 'cafe_music' }
+            ],
+            prize: {
+                type: 'discount',
+                details: { percent: 30 }
+            }
+        }];
+
+        // اضافه کردن پلن گنج قهوه به لیست
+        const allPlans = [treasurePlan, ...samplePlans];
+
+        // ================================================================
+        //  STATE
+        // ================================================================
+        let currentTab = 'active';
+
+        // ================================================================
+        //  SWITCH TAB
+        // ================================================================
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tabs .tab').forEach(el => {
+                el.classList.toggle('active', el.dataset.tab === tab);
+            });
+            renderPlans();
+        }
+
+        // ================================================================
+        //  RENDER PLANS
+        // ================================================================
+        function renderPlans() {
+            const container = document.getElementById('planList');
+
+            let filtered = [];
+            if (currentTab === 'active') {
+                filtered = allPlans.filter(p => p.status === 'active');
+            } else if (currentTab === 'inactive') {
+                filtered = allPlans.filter(p => p.status === 'inactive');
+            } else {
+                filtered = allPlans;
+            }
+
+            // آپدیت شمارنده‌ها
+            document.getElementById('activeCount').textContent = allPlans.filter(p => p.status === 'active').length;
+            document.getElementById('inactiveCount').textContent = allPlans.filter(p => p.status === 'inactive').length;
+            document.getElementById('allCount').textContent = allPlans.length;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                            <div class="empty-state">
+                                <span class="empty-icon">📭</span>
+                                <div class="empty-title">هیچ پلنی وجود ندارد</div>
+                                <div class="empty-desc">اولین پلن خود را بسازید!</div>
+                            </div>
+                        `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(plan => {
+                const statusClass = plan.status === 'active' ? 'active' : 'inactive';
+                const statusLabel = plan.status === 'active' ? 'فعال' : 'غیرفعال';
+
+                const stepsPreview = plan.steps.slice(0, 4);
+                const hasMore = plan.steps.length > 4;
+
+                let stepsHtml = '';
+                stepsHtml += stepsPreview.map((step, i) => {
+                    const icon = stepIcons[step.type] || '📌';
+                    return `
+                                <div class="step-dot filled">
+                                    ${icon}
+                                </div>
+                                ${i < stepsPreview.length - 1 ? '<div class="step-line filled"></div>' : ''}
+                            `;
+                }).join('');
+
+                if (hasMore) {
+                    stepsHtml += `<div class="step-dot more">+${plan.steps.length - 4}</div>`;
+                }
+
+                // جایزه
+                stepsHtml += `
+                            <div class="step-line filled"></div>
+                            <div class="step-dot treasure">🎁</div>
+                        `;
+
+                const rankEmoji = {
+                    bronze: '🥉',
+                    silver: '🥈',
+                    gold: '🥇',
+                    platinum: '💎',
+                    diamond: '🌟'
+                };
+
+                return `
+                            <div class="plan-card ${statusClass}" onclick="openPlanModal(${plan.id})">
+                                <div class="plan-top">
+                                    <div class="plan-name">${plan.name}</div>
+                                    <span class="plan-status ${statusClass}">${statusLabel}</span>
+                                </div>
+                                <div class="plan-info">
+                                    <span class="pi-item">📅 ${plan.startDate} - ${plan.endDate}</span>
+                                    <span class="pi-item">${rankEmoji[plan.rank] || '🏅'} ${plan.rank}</span>
+                                </div>
+                                <div class="plan-steps-preview">
+                                    ${stepsHtml}
+                                </div>
+                                <div class="plan-footer">
+                                    <span class="plan-participants">👥 <span>${plan.participants}</span> شرکت‌کننده</span>
+                                    <span class="plan-rank">${plan.steps.length} مرحله</span>
+                                </div>
+                            </div>
+                        `;
+            }).join('');
+        }
+
+        // ================================================================
+        //  OPEN PLAN MODAL (با خطوط متصل)
+        // ================================================================
+        function openPlanModal(planId) {
+            const plan = allPlans.find(p => p.id === planId);
+            if (!plan) return;
+
+            document.getElementById('modalTitle').textContent = plan.name;
+            document.getElementById('modalParticipants').textContent = plan.participants + ' نفر';
+
+            const container = document.getElementById('modalMap');
+
+            let html = '';
+
+            // مراحل
+            plan.steps.forEach((step, index) => {
+                const icon = stepIcons[step.type] || '📌';
+                const label = stepLabels[step.type] || step.type;
+                const isLast = index === plan.steps.length - 1;
+
+                let detail = '';
+                switch (step.type) {
+                    case 'invite':
+                        detail = `دعوت ${step.count} نفر`;
+                        break;
+                    case 'visit':
+                        detail = `${step.count} بار مراجعه`;
+                        break;
+                    case 'instagram':
+                        detail = `دنبال کردن @${step.username}`;
+                        break;
+                    case 'order':
+                        detail = `هر بار سفارش`;
+                        break;
+                    case 'order_amount':
+                        detail = `سفارش بالای ${step.amount.toLocaleString()} تومان`;
+                        break;
+                    case 'order_item':
+                        detail = `سفارش ${step.item}`;
+                        break;
+                }
+
+                html += `
+                            <div class="modal-step filled">
+                                <div class="ms-line-wrap">
+                                    <div class="ms-circle filled">
+                                        <span class="ms-icon">${icon}</span>
+                                    </div>
+                                    ${!isLast ? `<div class="ms-line filled"></div>` : ''}
+                                </div>
+                                <div class="ms-info">
+                                    <div class="ms-label">مرحله ${index + 1} · ${label}</div>
+                                    <div class="ms-value">${detail}</div>
+                                </div>
+                            </div>
+                        `;
+            });
+
+            // جایزه (آخرین مرحله با خط)
+            let prizeDetail = '';
+            switch (plan.prize.type) {
+                case 'rank':
+                    prizeDetail = `افزایش ${plan.prize.details.rank} رنک`;
+                    break;
+                case 'discount':
+                    prizeDetail = `${plan.prize.details.percent}٪ تخفیف`;
+                    break;
+                case 'custom':
+                    prizeDetail = plan.prize.details.text;
+                    break;
+            }
+
+            html += `
+                        <div class="modal-step treasure-step">
+                            <div class="ms-line-wrap">
+                                <div class="ms-circle treasure">
+                                    <span class="ms-icon">🎁</span>
+                                </div>
+                                <div class="ms-line" style="display:none;"></div>
+                            </div>
+                            <div class="ms-info">
+                                <div class="ms-label" style="color:#d97706;">🎁 جایزه نهایی</div>
+                                <div class="ms-value">${prizeDetail}</div>
+                            </div>
+                        </div>
+                    `;
+
+            container.innerHTML = html;
+            document.getElementById('planModal').classList.add('show');
+        }
+
+        // ================================================================
+        //  CLOSE MODAL
+        // ================================================================
+        function closeModal() {
+            document.getElementById('planModal').classList.remove('show');
+        }
+
+        // ================================================================
+        //  KEYBOARD SHORTCUTS
+        // ================================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        renderPlans();
+        console.log('✅ صفحه پلن‌های من بارگذاری شد');
+        console.log('🗺️ پلن گنج قهوه با ۱۰ مرحله:', treasurePlan);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>اینبار | خانه مشتری</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #1a2332;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 16px 16px 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-left .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #edeafb, #e2dcf7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #6c5ce7;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 12px rgba(108, 92, 231, 0.15);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .header-left .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-left .user-greeting {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-left .user-greeting .greeting {
+            font-size: 12px;
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .header-left .user-greeting .name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a2332;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-actions .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f0f4f8;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .header-actions .icon-btn:hover {
+            background: #e8e4f8;
+        }
+
+        .header-actions .icon-btn .badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: #fc8181;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        /* ===== LEVEL BAR ===== */
+        .level-bar {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            margin: 16px 0 20px;
+            border-radius: 20px;
+            padding: 18px 22px;
+            color: #fff;
+            box-shadow: 0 8px 32px rgba(108, 92, 231, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-bar::before {
+            content: '✦';
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-size: 80px;
+            opacity: 0.08;
+        }
+
+        .level-bar::after {
+            content: '✦';
+            position: absolute;
+            bottom: -30px;
+            right: 30px;
+            font-size: 100px;
+            opacity: 0.06;
+        }
+
+        .level-bar .level-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .level-bar .level-label {
+            font-size: 13px;
+            opacity: 0.8;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .level-bar .level-number {
+            font-size: 18px;
+            font-weight: 800;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .level-bar .level-progress {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .level-bar .level-progress .fill {
+            height: 100%;
+            background: #fff;
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.8s ease;
+        }
+
+        .level-bar .level-bottom {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            font-size: 12px;
+            opacity: 0.8;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        /* ===== QUICK ACTIONS ===== */
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .quick-item {
+            background: #fff;
+            border-radius: 16px;
+            padding: 14px 8px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .quick-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 28px rgba(108, 92, 231, 0.10);
+            border-color: #6c5ce7;
+        }
+
+        .quick-item .qi-icon {
+            font-size: 26px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .quick-item .qi-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #1a2332;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .quick-item .qi-desc {
+            font-size: 10px;
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .section-title .see-all {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6c5ce7;
+            cursor: pointer;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        /* ===== CAFE CARDS (با رنک) ===== */
+        .cafe-scroll {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 24px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .cafe-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cafe-card {
+            min-width: 140px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px 14px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            scroll-snap-align: start;
+            transition: all 0.3s;
+            cursor: pointer;
+            flex-shrink: 0;
+            text-align: center;
+        }
+
+        .cafe-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.08);
+            border-color: #6c5ce7;
+        }
+
+        .cafe-card .cafe-avatar {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .cafe-card .cafe-name {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .cafe-card .cafe-rank {
+            font-size: 12px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin-top: 2px;
+        }
+
+        .cafe-card .cafe-rank .rank-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .cafe-card .cafe-rank .rank-badge.bronze {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        .cafe-card .cafe-rank .rank-badge.silver {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+        .cafe-card .cafe-rank .rank-badge.gold {
+            background: #fef3c7;
+            color: #b45309;
+        }
+        .cafe-card .cafe-rank .rank-badge.platinum {
+            background: #e0e7ff;
+            color: #4f46e5;
+        }
+        .cafe-card .cafe-rank .rank-badge.diamond {
+            background: #edeafb;
+            color: #6c5ce7;
+        }
+
+        .cafe-card .cafe-visits {
+            font-size: 11px;
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 4px;
+        }
+
+        /* ===== PLANS MINI ===== */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .plan-mini {
+            background: #fff;
+            border-radius: 14px;
+            padding: 14px 14px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .plan-mini:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.08);
+            border-color: #6c5ce7;
+        }
+
+        .plan-mini .pm-icon {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .plan-mini .pm-name {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .plan-mini .pm-host {
+            font-size: 11px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .plan-mini .pm-progress {
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .plan-mini .pm-progress .pm-bar {
+            flex: 1;
+            height: 4px;
+            background: #f0f4f8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .plan-mini .pm-progress .pm-bar .fill {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            transition: width 0.8s ease;
+        }
+
+        .plan-mini .pm-progress .pm-percent {
+            font-size: 11px;
+            font-weight: 700;
+            color: #6c5ce7;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        /* ===== LEVEL INFO (بر اساس کافه‌ها) ===== */
+        .level-info {
+            background: #fff;
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 20px;
+            border: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .level-info .li-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .level-info .li-left .li-icon {
+            font-size: 28px;
+        }
+
+        .level-info .li-left .li-text .li-title {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .level-info .li-left .li-text .li-desc {
+            font-size: 12px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .level-info .li-right {
+            font-size: 20px;
+            font-weight: 800;
+            color: #6c5ce7;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        /* ===== BOTTOM NAV ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0 10px;
+            z-index: 200;
+        }
+
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            background: transparent;
+            border: none;
+            font-family: 'Vazir', sans-serif;
+            position: relative;
+        }
+
+        .bottom-nav .nav-item .nav-icon {
+            font-size: 22px;
+            transition: transform 0.2s;
+        }
+
+        .bottom-nav .nav-item .nav-label {
+            font-size: 10px;
+            color: #a0aec0;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .bottom-nav .nav-item.active .nav-label {
+            color: #6c5ce7;
+            font-weight: 700;
+        }
+
+        .bottom-nav .nav-item.active .nav-icon {
+            transform: scale(1.1);
+        }
+
+        .bottom-nav .nav-item.active {
+            background: #f0f4f8;
+        }
+
+        .bottom-nav .nav-item .nav-badge {
+            position: absolute;
+            top: 0;
+            right: 2px;
+            background: #fc8181;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .bottom-nav .nav-item.scan-btn {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -14px;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+            padding: 0;
+        }
+
+        .bottom-nav .nav-item.scan-btn .nav-icon {
+            font-size: 26px;
+            color: #fff;
+        }
+
+        .bottom-nav .nav-item.scan-btn .nav-label {
+            display: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 12px 10px;
+            }
+
+            .header-left .avatar {
+                width: 38px;
+                height: 38px;
+                font-size: 16px;
+            }
+
+            .header-left .user-greeting .name {
+                font-size: 14px;
+            }
+
+            .quick-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+
+            .quick-item {
+                padding: 10px 4px;
+            }
+
+            .quick-item .qi-icon {
+                font-size: 22px;
+            }
+
+            .quick-item .qi-label {
+                font-size: 10px;
+            }
+
+            .plans-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .level-bar {
+                padding: 14px 16px;
+                margin: 12px 0 16px;
+            }
+
+            .level-bar .level-number {
+                font-size: 16px;
+            }
+
+            .cafe-card {
+                min-width: 120px;
+                padding: 12px 10px;
+            }
+
+            .cafe-card .cafe-avatar {
+                font-size: 30px;
+            }
+
+            .level-info {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+
+            .level-info .li-left {
+                flex-direction: column;
+            }
+
+            .bottom-nav .nav-item {
+                padding: 2px 8px;
+            }
+
+            .bottom-nav .nav-item .nav-icon {
+                font-size: 20px;
+            }
+
+            .bottom-nav .nav-item .nav-label {
+                font-size: 9px;
+            }
+
+            .bottom-nav .nav-item.scan-btn {
+                width: 44px;
+                height: 44px;
+                margin-top: -10px;
+            }
+
+            .bottom-nav .nav-item.scan-btn .nav-icon {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .quick-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="header-top">
+            <div class="header-left">
+                <div class="avatar" onclick="window.location.href='my-profile-customer.html'">
+                    <span>👤</span>
+                </div>
+                <div class="user-greeting">
+                    <span class="greeting">سلام 👋</span>
+                    <span class="name">معین</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" onclick="window.location.href='my-prizes.html'">
+                    🎁
+                    <span class="badge">۲</span>
+                </button>
+                <button class="icon-btn" onclick="window.location.href='my-request-customer.html'">
+                    📨
+                    <span class="badge">۳</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <div class="container">
+
+        <!-- ===== LEVEL BAR ===== -->
+        <div class="level-bar">
+            <div class="level-top">
+                <span class="level-label">🎯 سطح وفاداری</span>
+                <span class="level-number">الماس 🎖️</span>
+            </div>
+            <div class="level-progress">
+                <div class="fill" style="width: 78%;"></div>
+            </div>
+            <div class="level-bottom">
+                <span>۱۲۴ امتیاز</span>
+                <span>از ۶ کافه</span>
+            </div>
+        </div>
+
+        <!-- ===== LEVEL INFO (بر اساس کافه‌ها) ===== -->
+        <div class="level-info">
+            <div class="li-left">
+                <span class="li-icon">🏪</span>
+                <div class="li-text">
+                    <div class="li-title">سطح وفاداری شما</div>
+                    <div class="li-desc">بر اساس فعالیت در ۶ کافه</div>
+                </div>
+            </div>
+            <div class="li-right">🌟 الماس</div>
+        </div>
+
+        <!-- ===== QUICK ACTIONS ===== -->
+        <div class="quick-grid">
+            <div class="quick-item" onclick="window.location.href='scan.html'">
+                <span class="qi-icon">📸</span>
+                <span class="qi-label">اسکن</span>
+                <span class="qi-desc">بارکد</span>
+            </div>
+            <div class="quick-item" onclick="window.location.href='my-plans-customer.html'">
+                <span class="qi-icon">📋</span>
+                <span class="qi-label">پلن‌ها</span>
+                <span class="qi-desc">من</span>
+            </div>
+            <div class="quick-item" onclick="window.location.href='my-prizes.html'">
+                <span class="qi-icon">🎁</span>
+                <span class="qi-label">جایزه‌ها</span>
+                <span class="qi-desc">موجود</span>
+            </div>
+            <div class="quick-item" onclick="window.location.href='my-hosts.html'">
+                <span class="qi-icon">🏪</span>
+                <span class="qi-label">کافه‌ها</span>
+                <span class="qi-desc">موردعلاقه</span>
+            </div>
+        </div>
+
+        <!-- ===== کافه‌های من با رنک ===== -->
+        <div class="section-title">
+            <span>🏪 کافه‌های من</span>
+            <span class="see-all" onclick="window.location.href='my-hosts.html'">مشاهده همه</span>
+        </div>
+
+        <div class="cafe-scroll" id="cafeList">
+            <!-- توسط JS پر میشه -->
+        </div>
+
+        <!-- ===== پلن‌های من ===== -->
+        <div class="section-title">
+            <span>📋 پلن‌های من</span>
+            <span class="see-all" onclick="window.location.href='my-plans-customer.html'">مشاهده همه</span>
+        </div>
+
+        <div class="plans-grid" id="plansGrid">
+            <!-- توسط JS پر میشه -->
+        </div>
+
+    </div>
+
+    <!-- ===== BOTTOM NAV ===== -->
+    <div class="bottom-nav">
+        <button class="nav-item active" onclick="window.location.href='customerHome.html'">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">خانه</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='my-plans-customer.html'">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">پلن‌ها</span>
+        </button>
+        <button class="nav-item scan-btn" onclick="window.location.href='scan.html'">
+            <span class="nav-icon">📸</span>
+            <span class="nav-label">اسکن</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='my-prizes.html'">
+            <span class="nav-icon">🎁</span>
+            <span class="nav-label">جایزه‌ها</span>
+            <span class="nav-badge">۲</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='my-profile-customer.html'">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">پروفایل</span>
+        </button>
+    </div>
+
+    <script>
+        // ================================================================
+        //  DATA
+        // ================================================================
+
+        // کافه‌های من با رنک
+        const cafes = [{
+            id: 1,
+            name: 'کافه میزبان',
+            emoji: '☕',
+            rank: 'diamond',
+            rankLabel: 'الماس',
+            visits: 24,
+            total: 30
+        }, {
+            id: 2,
+            name: 'کافه هنر',
+            emoji: '🎨',
+            rank: 'gold',
+            rankLabel: 'طلا',
+            visits: 18,
+            total: 25
+        }, {
+            id: 3,
+            name: 'کافه کتاب',
+            emoji: '📚',
+            rank: 'silver',
+            rankLabel: 'نقره',
+            visits: 12,
+            total: 20
+        }, {
+            id: 4,
+            name: 'کافه شب',
+            emoji: '🌙',
+            rank: 'bronze',
+            rankLabel: 'برنز',
+            visits: 6,
+            total: 15
+        }];
+
+        // پلن‌های من
+        const myPlans = [{
+            id: 1,
+            icon: '🗺️',
+            name: 'گنج قهوه',
+            host: 'کافه میزبان',
+            progress: 78
+        }, {
+            id: 2,
+            icon: '☕',
+            name: 'قهوه رایگان',
+            host: 'کافه میزبان',
+            progress: 100
+        }, {
+            id: 3,
+            icon: '🎁',
+            name: 'بسته غافلگیری',
+            host: 'کافه آرامش',
+            progress: 45
+        }, {
+            id: 4,
+            icon: '📚',
+            name: 'کتاب رایگان',
+            host: 'کافه کتاب',
+            progress: 60
+        }];
+
+        // ================================================================
+        //  RENDER FUNCTIONS
+        // ================================================================
+
+        // رندر کافه‌ها
+        function renderCafes() {
+            const container = document.getElementById('cafeList');
+
+            const rankClass = {
+                bronze: 'bronze',
+                silver: 'silver',
+                gold: 'gold',
+                platinum: 'platinum',
+                diamond: 'diamond'
+            };
+
+            const rankEmoji = {
+                bronze: '🥉',
+                silver: '🥈',
+                gold: '🥇',
+                platinum: '💎',
+                diamond: '🌟'
+            };
+
+            container.innerHTML = cafes.map(cafe => `
+                        <div class="cafe-card" onclick="window.location.href='my-hosts.html'">
+                            <span class="cafe-avatar">${cafe.emoji}</span>
+                            <div class="cafe-name">${cafe.name}</div>
+                            <div class="cafe-rank">
+                                ${rankEmoji[cafe.rank]}
+                                <span class="rank-badge ${rankClass[cafe.rank]}">${cafe.rankLabel}</span>
+                            </div>
+                            <div class="cafe-visits">${cafe.visits}/${cafe.total} بازدید</div>
+                        </div>
+                    `).join('');
+        }
+
+        // رندر پلن‌ها
+        function renderPlans() {
+            const container = document.getElementById('plansGrid');
+
+            container.innerHTML = myPlans.map(plan => `
+                        <div class="plan-mini" onclick="window.location.href='my-plans-customer.html'">
+                            <span class="pm-icon">${plan.icon}</span>
+                            <div class="pm-name">${plan.name}</div>
+                            <div class="pm-host">🏪 ${plan.host}</div>
+                            <div class="pm-progress">
+                                <div class="pm-bar">
+                                    <div class="fill" style="width: ${plan.progress}%;"></div>
+                                </div>
+                                <span class="pm-percent">${plan.progress}%</span>
+                            </div>
+                        </div>
+                    `).join('');
+        }
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        renderCafes();
+        renderPlans();
+
+        console.log('✅ صفحه خانه مشتری بارگذاری شد');
+        console.log('🏪 تعداد کافه‌ها:', cafes.length);
+        console.log('📋 تعداد پلن‌ها:', myPlans.length);
+        console.log('🌟 سطح وفاداری: الماس (از ۶ کافه)');
+    </script>
+
+</body>
+</html>

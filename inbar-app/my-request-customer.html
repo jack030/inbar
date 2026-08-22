@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>اینبار | درخواست‌های من</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #1a2332;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 16px 16px 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-left .back-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f4f8;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #1a2332;
+        }
+
+        .header-left .back-btn:hover {
+            background: #e8e4f8;
+        }
+
+        .header-left h1 {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .header-left h1 span {
+            color: #6c5ce7;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-actions .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f4f8;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .header-actions .icon-btn:hover {
+            background: #e8e4f8;
+        }
+
+        /* ===== STATS ===== */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 16px 0 20px;
+        }
+
+        .stat-box {
+            background: #fff;
+            border-radius: 14px;
+            padding: 14px 12px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+        }
+
+        .stat-box .stat-number {
+            font-size: 22px;
+            font-weight: 800;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .stat-box .stat-number.pending {
+            color: #d97706;
+        }
+        .stat-box .stat-number.approved {
+            color: #059669;
+        }
+        .stat-box .stat-number.total {
+            color: #6c5ce7;
+        }
+
+        .stat-box .stat-label {
+            font-size: 12px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 2px;
+        }
+
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 16px;
+            background: #fff;
+            border-radius: 14px;
+            padding: 4px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tabs .tab {
+            flex: 1;
+            min-width: 70px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazir', sans-serif;
+            background: transparent;
+            color: #a0aec0;
+            white-space: nowrap;
+        }
+
+        .tabs .tab.active {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.2);
+        }
+
+        .tabs .tab:hover:not(.active) {
+            background: #f0f4f8;
+            color: #4a5568;
+        }
+
+        .tabs .tab .tab-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0 8px;
+            border-radius: 50px;
+            font-size: 10px;
+            margin-right: 4px;
+        }
+
+        .tabs .tab.active .tab-badge {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* ===== REQUEST LIST ===== */
+        .request-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .request-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 16px 18px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .request-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.06);
+            border-color: #e2e8f0;
+        }
+
+        .request-card .request-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+
+        .request-card .request-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .request-card .request-icon {
+            font-size: 32px;
+        }
+
+        .request-card .request-info .request-plan {
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .request-card .request-info .request-host {
+            font-size: 13px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .request-card .request-info .request-host .host-name {
+            color: #1a2332;
+            font-weight: 500;
+        }
+
+        .request-card .request-status {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-family: 'Vazir', sans-serif;
+            flex-shrink: 0;
+        }
+
+        .request-card .request-status.pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .request-card .request-status.approved {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .request-card .request-status.rejected {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .request-card .request-status.completed {
+            background: #edeafb;
+            color: #6c5ce7;
+        }
+
+        .request-card .request-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            padding: 10px 0 6px;
+            border-top: 1px solid #f0f0f0;
+            margin-top: 6px;
+        }
+
+        .request-card .request-details .rd-item {
+            font-size: 12px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .request-card .request-details .rd-item .rd-value {
+            color: #1a2332;
+            font-weight: 600;
+        }
+
+        .request-card .request-details .rd-item .rd-value.step-done {
+            color: #6c5ce7;
+        }
+
+        .request-card .request-details .rd-item .rd-value.step-total {
+            color: #a0aec0;
+        }
+
+        .request-card .request-progress {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .request-card .request-progress .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: #f0f4f8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .request-card .request-progress .progress-bar .fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.8s ease;
+        }
+
+        .request-card .request-progress .progress-bar .fill.pending {
+            background: linear-gradient(90deg, #f6ad55, #ed8936);
+        }
+
+        .request-card .request-progress .progress-bar .fill.approved {
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+        }
+
+        .request-card .request-progress .progress-bar .fill.completed {
+            background: linear-gradient(90deg, #48bb78, #38a169);
+        }
+
+        .request-card .request-progress .progress-bar .fill.rejected {
+            background: #e2e8f0;
+        }
+
+        .request-card .request-progress .progress-text {
+            font-size: 13px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+            min-width: 40px;
+            text-align: left;
+        }
+
+        .request-card .request-progress .progress-text.pending {
+            color: #d97706;
+        }
+        .request-card .request-progress .progress-text.approved {
+            color: #6c5ce7;
+        }
+        .request-card .request-progress .progress-text.completed {
+            color: #059669;
+        }
+        .request-card .request-progress .progress-text.rejected {
+            color: #94a3b8;
+        }
+
+        .request-card .request-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .request-card .request-actions .action-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .request-card .request-actions .action-btn.view {
+            background: #f0f4f8;
+            color: #4a5568;
+        }
+
+        .request-card .request-actions .action-btn.view:hover {
+            background: #e8e4f8;
+            color: #6c5ce7;
+        }
+
+        .request-card .request-actions .action-btn.cancel {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .request-card .request-actions .action-btn.cancel:hover {
+            background: #fecaca;
+            transform: translateY(-2px);
+        }
+
+        .request-card .request-actions .action-btn.continue {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+        }
+
+        .request-card .request-actions .action-btn.continue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .request-card .request-actions .action-btn.prize {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .request-card .request-actions .action-btn.prize:hover {
+            background: #a7f3d0;
+            transform: translateY(-2px);
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: #fff;
+            border-radius: 20px;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .empty-state .empty-title {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .empty-state .empty-desc {
+            font-size: 14px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 4px;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a2332;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 16px;
+            font-family: 'Vazir', sans-serif;
+            font-size: 14px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        /* ===== BOTTOM NAV ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0 10px;
+            z-index: 200;
+        }
+
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            background: transparent;
+            border: none;
+            font-family: 'Vazir', sans-serif;
+            position: relative;
+        }
+
+        .bottom-nav .nav-item .nav-icon {
+            font-size: 22px;
+            transition: transform 0.2s;
+        }
+
+        .bottom-nav .nav-item .nav-label {
+            font-size: 10px;
+            color: #a0aec0;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .bottom-nav .nav-item.active .nav-label {
+            color: #6c5ce7;
+            font-weight: 700;
+        }
+
+        .bottom-nav .nav-item.active .nav-icon {
+            transform: scale(1.1);
+        }
+
+        .bottom-nav .nav-item.active {
+            background: #f0f4f8;
+        }
+
+        .bottom-nav .nav-item .nav-badge {
+            position: absolute;
+            top: 0;
+            right: 2px;
+            background: #fc8181;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .bottom-nav .nav-item.scan-btn {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -14px;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+            padding: 0;
+        }
+
+        .bottom-nav .nav-item.scan-btn .nav-icon {
+            font-size: 26px;
+            color: #fff;
+        }
+
+        .bottom-nav .nav-item.scan-btn .nav-label {
+            display: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 12px 10px;
+            }
+
+            .header-left h1 {
+                font-size: 16px;
+            }
+
+            .stats-row {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+
+            .stat-box {
+                padding: 10px 8px;
+            }
+
+            .stat-box .stat-number {
+                font-size: 18px;
+            }
+
+            .tabs .tab {
+                font-size: 12px;
+                padding: 6px 10px;
+                min-width: 60px;
+            }
+
+            .request-card {
+                padding: 14px 14px;
+            }
+
+            .request-card .request-icon {
+                font-size: 28px;
+            }
+
+            .request-card .request-info .request-plan {
+                font-size: 14px;
+            }
+
+            .request-card .request-details {
+                gap: 8px 14px;
+            }
+
+            .request-card .request-details .rd-item {
+                font-size: 11px;
+            }
+
+            .request-card .request-actions .action-btn {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .bottom-nav .nav-item {
+                padding: 2px 8px;
+            }
+
+            .bottom-nav .nav-item .nav-icon {
+                font-size: 20px;
+            }
+
+            .bottom-nav .nav-item .nav-label {
+                font-size: 9px;
+            }
+
+            .bottom-nav .nav-item.scan-btn {
+                width: 44px;
+                height: 44px;
+                margin-top: -10px;
+            }
+
+            .bottom-nav .nav-item.scan-btn .nav-icon {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="header-top">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='customer-home.html'">→</button>
+                <h1>📨 <span>درخواست</span>‌های من</h1>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" onclick="alert('مرتب‌سازی')">📊</button>
+                <button class="icon-btn" onclick="alert('فیلتر')">⚙️</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <div class="container">
+
+        <!-- ===== STATS ===== -->
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-number pending">۳</div>
+                <div class="stat-label">⏳ در انتظار</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number approved">۲</div>
+                <div class="stat-label">✅ تایید شده</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number total">۷</div>
+                <div class="stat-label">📋 مجموع</div>
+            </div>
+        </div>
+
+        <!-- ===== TABS ===== -->
+        <div class="tabs">
+            <button class="tab active" data-tab="all" onclick="switchTab('all')">
+                📋 همه
+                <span class="tab-badge">۷</span>
+            </button>
+            <button class="tab" data-tab="pending" onclick="switchTab('pending')">
+                ⏳ در انتظار
+                <span class="tab-badge">۳</span>
+            </button>
+            <button class="tab" data-tab="approved" onclick="switchTab('approved')">
+                ✅ تایید
+                <span class="tab-badge">۲</span>
+            </button>
+            <button class="tab" data-tab="completed" onclick="switchTab('completed')">
+                🎉 تکمیل
+                <span class="tab-badge">۲</span>
+            </button>
+        </div>
+
+        <!-- ===== REQUEST LIST ===== -->
+        <div class="request-list" id="requestList">
+            <!-- توسط JS پر میشه -->
+        </div>
+
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ===== BOTTOM NAV ===== -->
+    <div class="bottom-nav">
+        <button class="nav-item" onclick="window.location.href='customer-home.html'">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">خانه</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='my-plans-customer.html'">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">پلن‌ها</span>
+        </button>
+        <button class="nav-item scan-btn" onclick="window.location.href='scan.html'">
+            <span class="nav-icon">📸</span>
+            <span class="nav-label">اسکن</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='prizes.html'">
+            <span class="nav-icon">🎁</span>
+            <span class="nav-label">جوایز</span>
+            <span class="nav-badge">۲</span>
+        </button>
+        <button class="nav-item active" onclick="window.location.href='my-request-customer.html'">
+            <span class="nav-icon">📨</span>
+            <span class="nav-label">درخواست‌ها</span>
+            <span class="nav-badge">۳</span>
+        </button>
+    </div>
+
+    <script>
+        // ================================================================
+        //  DATA
+        // ================================================================
+
+        const requests = [{
+            id: 1,
+            icon: '🗺️',
+            planName: 'گنج قهوه',
+            host: 'کافه میزبان',
+            hostIcon: '☕',
+            status: 'pending',
+            statusLabel: '⏳ در انتظار تایید',
+            date: '۱۴۰۴/۰۱/۲۵',
+            currentStep: 5,
+            totalSteps: 10,
+            progress: 50,
+            stepDetail: 'مرحله ۵: مراجعه ۳ بار'
+        }, {
+            id: 2,
+            icon: '☕',
+            planName: 'قهوه رایگان',
+            host: 'کافه میزبان',
+            hostIcon: '☕',
+            status: 'pending',
+            statusLabel: '⏳ در انتظار تایید',
+            date: '۱۴۰۴/۰۱/۲۴',
+            currentStep: 2,
+            totalSteps: 3,
+            progress: 66,
+            stepDetail: 'مرحله ۲: سفارش'
+        }, {
+            id: 3,
+            icon: '🎁',
+            planName: 'بسته غافلگیری',
+            host: 'کافه آرامش',
+            hostIcon: '🌿',
+            status: 'approved',
+            statusLabel: '✅ تایید شده',
+            date: '۱۴۰۴/۰۱/۲۳',
+            currentStep: 3,
+            totalSteps: 3,
+            progress: 100,
+            stepDetail: 'مرحله ۳: مراجعه ۲ بار'
+        }, {
+            id: 4,
+            icon: '📚',
+            planName: 'کتاب رایگان',
+            host: 'کافه کتاب',
+            hostIcon: '📚',
+            status: 'pending',
+            statusLabel: '⏳ در انتظار تایید',
+            date: '۱۴۰۴/۰۱/۲۲',
+            currentStep: 1,
+            totalSteps: 3,
+            progress: 33,
+            stepDetail: 'مرحله ۱: سفارش آیتم خاص'
+        }, {
+            id: 5,
+            icon: '🎵',
+            planName: 'بلیت کنسرت',
+            host: 'کافه شب',
+            hostIcon: '🌙',
+            status: 'rejected',
+            statusLabel: '❌ رد شده',
+            date: '۱۴۰۴/۰۱/۲۰',
+            currentStep: 2,
+            totalSteps: 3,
+            progress: 66,
+            stepDetail: 'مرحله ۲: سفارش بیش از ۲۰۰,۰۰۰ تومان'
+        }, {
+            id: 6,
+            icon: '🌟',
+            planName: 'شب موسیقی',
+            host: 'کافه موزیک',
+            hostIcon: '🎵',
+            status: 'completed',
+            statusLabel: '🎉 تکمیل شده',
+            date: '۱۴۰۴/۰۱/۱۹',
+            currentStep: 6,
+            totalSteps: 6,
+            progress: 100,
+            stepDetail: 'مرحله ۶: دریافت جایزه'
+        }, {
+            id: 7,
+            icon: '🎨',
+            planName: 'کارگاه نقاشی',
+            host: 'کافه هنر',
+            hostIcon: '🎨',
+            status: 'completed',
+            statusLabel: '🎉 تکمیل شده',
+            date: '۱۴۰۴/۰۱/۱۸',
+            currentStep: 4,
+            totalSteps: 4,
+            progress: 100,
+            stepDetail: 'مرحله ۴: دریافت جایزه'
+        }];
+
+        // ================================================================
+        //  STATE
+        // ================================================================
+        let currentTab = 'all';
+
+        // ================================================================
+        //  SWITCH TAB
+        // ================================================================
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tabs .tab').forEach(el => {
+                el.classList.toggle('active', el.dataset.tab === tab);
+            });
+            renderRequests();
+        }
+
+        // ================================================================
+        //  RENDER REQUESTS
+        // ================================================================
+        function renderRequests() {
+            const container = document.getElementById('requestList');
+
+            let filtered = requests;
+            if (currentTab !== 'all') {
+                filtered = requests.filter(r => r.status === currentTab);
+            }
+
+            // آپدیت شمارنده‌های تب
+            document.querySelectorAll('.tabs .tab').forEach(el => {
+                const tab = el.dataset.tab;
+                const count = tab === 'all' ? requests.length :
+                    requests.filter(r => r.status === tab).length;
+                const badge = el.querySelector('.tab-badge');
+                if (badge) badge.textContent = count;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                            <div class="empty-state">
+                                <span class="empty-icon">📭</span>
+                                <div class="empty-title">درخواستی وجود ندارد</div>
+                                <div class="empty-desc">هیچ درخواستی در این دسته‌بندی نیست</div>
+                            </div>
+                        `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(req => {
+                const statusClass = req.status;
+                const isPending = req.status === 'pending';
+                const isApproved = req.status === 'approved';
+                const isCompleted = req.status === 'completed';
+                const isRejected = req.status === 'rejected';
+
+                const progressColor = isPending ? 'pending' :
+                    isApproved ? 'approved' :
+                    isCompleted ? 'completed' : 'rejected';
+
+                let actionButtons = '';
+                if (isPending) {
+                    actionButtons = `
+                                <button class="action-btn cancel" onclick="cancelRequest(${req.id})">❌ لغو درخواست</button>
+                                <button class="action-btn view" onclick="showToast('جزئیات درخواست ${req.planName}')">👁️ مشاهده</button>
+                            `;
+                } else if (isApproved) {
+                    actionButtons = `
+                                <button class="action-btn continue" onclick="showToast('ادامه پلن ${req.planName}')">▶️ ادامه</button>
+                                <button class="action-btn view" onclick="showToast('جزئیات درخواست ${req.planName}')">👁️ مشاهده</button>
+                            `;
+                } else if (isCompleted) {
+                    actionButtons = `
+                                <button class="action-btn prize" onclick="showToast('🎁 دریافت جایزه ${req.planName}')">🎁 دریافت جایزه</button>
+                                <button class="action-btn view" onclick="showToast('جزئیات درخواست ${req.planName}')">👁️ مشاهده</button>
+                            `;
+                } else {
+                    actionButtons = `
+                                <button class="action-btn view" onclick="showToast('جزئیات درخواست ${req.planName}')">👁️ مشاهده</button>
+                            `;
+                }
+
+                return `
+                            <div class="request-card" onclick="showToast('رفتن به صفحه ${req.planName}')">
+                                <div class="request-top">
+                                    <div class="request-left">
+                                        <span class="request-icon">${req.icon}</span>
+                                        <div class="request-info">
+                                            <div class="request-plan">${req.planName}</div>
+                                            <div class="request-host">
+                                                ${req.hostIcon} <span class="host-name">${req.host}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="request-status ${statusClass}">${req.statusLabel}</span>
+                                </div>
+
+                                <div class="request-details">
+                                    <span class="rd-item">📅 تاریخ: <span class="rd-value">${req.date}</span></span>
+                                    <span class="rd-item">📌 ${req.stepDetail}</span>
+                                    <span class="rd-item">مراحل: <span class="rd-value step-done">${req.currentStep}</span><span class="rd-value step-total">/${req.totalSteps}</span></span>
+                                </div>
+
+                                <div class="request-progress">
+                                    <div class="progress-bar">
+                                        <div class="fill ${progressColor}" style="width: ${req.progress}%;"></div>
+                                    </div>
+                                    <span class="progress-text ${progressColor}">${req.progress}%</span>
+                                </div>
+
+                                <div class="request-actions">
+                                    ${actionButtons}
+                                </div>
+                            </div>
+                        `;
+            }).join('');
+        }
+
+        // ================================================================
+        //  CANCEL REQUEST
+        // ================================================================
+        function cancelRequest(requestId) {
+            const req = requests.find(r => r.id === requestId);
+            if (!req) return;
+
+            if (confirm(`آیا از لغو درخواست "${req.planName}" مطمئن هستید؟`)) {
+                req.status = 'rejected';
+                req.statusLabel = '❌ لغو شده';
+                showToast(`❌ درخواست "${req.planName}" لغو شد`);
+                renderRequests();
+            }
+        }
+
+        // ================================================================
+        //  TOAST
+        // ================================================================
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        renderRequests();
+        console.log('✅ صفحه درخواست‌های مشتری بارگذاری شد');
+        console.log('📨 تعداد کل درخواست‌ها:', requests.length);
+    </script>
+
+</body>
+</html>

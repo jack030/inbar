@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اینبار | ثبت‌نام میزبان</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8e4f8 100%);
+            color: #1a2332;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 48px 36px 40px;
+            box-shadow: 0 24px 64px rgba(108, 92, 231, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .auth-card .logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .auth-card .logo .logo-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-radius: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.3);
+            margin-bottom: 12px;
+        }
+
+        .auth-card .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #1a2332;
+        }
+
+        .auth-card .logo h1 span {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-card .logo p {
+            color: #718096;
+            font-size: 15px;
+            margin-top: 4px;
+        }
+
+        .role-badge {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 8px 16px;
+            background: #f0f4f8;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .role-badge span {
+            font-weight: 700;
+            color: #6c5ce7;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 16px;
+            font-family: 'Vazir', sans-serif;
+            transition: all 0.3s;
+            background: #f7fafc;
+            color: #1a2332;
+            text-align: right;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .form-group .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            direction: ltr;
+        }
+
+        .form-group .input-wrapper .at-sign {
+            position: absolute;
+            left: 16px;
+            color: #718096;
+            font-weight: 500;
+            font-size: 15px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .form-group .input-wrapper input {
+            padding-left: 48px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .form-group .input-wrapper .prefix-phone {
+            position: absolute;
+            left: 16px;
+            color: #718096;
+            font-weight: 500;
+            font-size: 15px;
+            font-family: 'Vazir', sans-serif;
+            direction: ltr;
+        }
+
+        .form-group .input-wrapper input.phone-input {
+            padding-left: 64px;
+            text-align: left;
+            direction: ltr;
+        }
+
+        .form-group .hint {
+            font-size: 13px;
+            color: #718096;
+            margin-top: 6px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .form-group .hint.success {
+            color: #48bb78;
+        }
+
+        .form-group .hint.error {
+            color: #fc8181;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.25);
+            font-family: 'Vazir', sans-serif;
+            margin-top: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(108, 92, 231, 0.35);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            background: transparent;
+            color: #6c5ce7;
+            border: 2px solid #e2e8f0;
+            padding: 14px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 12px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-secondary:hover {
+            border-color: #6c5ce7;
+            background: #f8f7ff;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .login-link a {
+            color: #6c5ce7;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+            gap: 16px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e2e8f0;
+        }
+
+        .divider span {
+            color: #a0aec0;
+            font-size: 13px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s ease-in-out infinite;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 32px 20px 28px;
+                border-radius: 24px;
+            }
+
+            .auth-card .logo h1 {
+                font-size: 24px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                padding: 14px;
+                font-size: 15px;
+            }
+
+            .form-group input {
+                font-size: 15px;
+                padding: 12px 16px;
+            }
+
+            .form-group .input-wrapper .at-sign,
+            .form-group .input-wrapper .prefix-phone {
+                left: 14px;
+                font-size: 14px;
+            }
+
+            .form-group .input-wrapper input {
+                padding-left: 44px;
+            }
+
+            .form-group .input-wrapper input.phone-input {
+                padding-left: 58px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="auth-card">
+
+            <!-- ===== LOGO ===== -->
+            <div class="logo">
+                <div class="logo-icon">✦</div>
+                <h1><span>اینبار</span></h1>
+                <p>سیستم مدیریت وفاداری</p>
+            </div>
+
+            <!-- ===== ROLE BADGE ===== -->
+            <div class="role-badge">
+                📝 ثبت‌نام به عنوان <span>میزبان</span>
+            </div>
+
+            <!-- ===== REGISTER FORM ===== -->
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <!-- نام کسب و کار -->
+                <div class="form-group">
+                    <label>🏪 نام کسب و کار</label>
+                    <input
+                    type="text"
+                    id="businessInput"
+                    placeholder="کافه میزبان"
+                    required
+                    />
+                    <div class="hint" id="businessHint">نام کافه یا کسب و کار خود را وارد کنید</div>
+                </div>
+
+                <!-- نام کاربری -->
+                <div class="form-group">
+                    <label>👤 نام کاربری</label>
+                    <div class="input-wrapper">
+                        <span class="at-sign">@</span>
+                        <input
+                        type="text"
+                        id="usernameInput"
+                        placeholder="mizban"
+                        required
+                        />
+                    </div>
+                    <div class="hint" id="usernameHint">نام کاربری خود را انتخاب کنید</div>
+                </div>
+
+                <!-- شماره موبایل -->
+                <div class="form-group">
+                    <label>📱 شماره موبایل</label>
+                    <div class="input-wrapper">
+                        <span class="prefix-phone">+۹۸</span>
+                        <input
+                        type="tel"
+                        id="phoneInput"
+                        class="phone-input"
+                        placeholder="۹۱۲ ۳۴۵ ۶۷۸۹"
+                        maxlength="11"
+                        required
+                        />
+                    </div>
+                    <div class="hint" id="phoneHint">شماره موبایل خود را وارد کنید</div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="registerBtn">
+                    📨 ثبت‌نام و دریافت کد تأیید
+                </button>
+            </form>
+
+            <!-- ===== DIVIDER ===== -->
+            <div class="divider">
+                <span>یا</span>
+            </div>
+
+            <!-- ===== LOGIN LINK ===== -->
+            <div class="login-link">
+                قبلاً ثبت‌نام کردید؟
+                <a href="Login.html">وارد شوید</a>
+            </div>
+
+            <!-- ===== BACK TO HOME ===== -->
+            <a href="index.html" class="btn-secondary" style="margin-top:16px;">
+                ← بازگشت به صفحه اصلی
+            </a>
+
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        //  DATA
+        // ================================================================
+        const database = {
+            users: [
+                { username: 'mizban', phone: '09123456789', business: 'کافه میزبان' },
+                { username: 'cafe_art', phone: '09211223344', business: 'کافه هنر' },
+                { username: 'cafe_book', phone: '09332211223', business: 'کافه کتاب' },
+            ]
+        };
+
+        // ================================================================
+        //  DOM REFS
+        // ================================================================
+        const registerForm = document.getElementById('registerForm');
+        const businessInput = document.getElementById('businessInput');
+        const usernameInput = document.getElementById('usernameInput');
+        const phoneInput = document.getElementById('phoneInput');
+        const registerBtn = document.getElementById('registerBtn');
+
+        const businessHint = document.getElementById('businessHint');
+        const usernameHint = document.getElementById('usernameHint');
+        const phoneHint = document.getElementById('phoneHint');
+
+        // ================================================================
+        //  UTILITY
+        // ================================================================
+        function toEnglishDigits(str) {
+            const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
+            const englishDigits = '0123456789';
+            let result = '';
+            for (let char of str) {
+                const index = persianDigits.indexOf(char);
+                result += index !== -1 ? englishDigits[index] : char;
+            }
+            return result;
+        }
+
+        function isUsernameTaken(username) {
+            return database.users.some(u => u.username.toLowerCase() === username.toLowerCase());
+        }
+
+        // ================================================================
+        //  PHONE INPUT
+        // ================================================================
+        phoneInput.addEventListener('input', (e) => {
+            let val = e.target.value;
+            val = toEnglishDigits(val);
+            val = val.replace(/\D/g, '');
+            e.target.value = val;
+
+            if (val.length === 0) {
+                phoneHint.textContent = 'شماره موبایل خود را وارد کنید';
+                phoneHint.className = 'hint';
+                phoneInput.style.borderColor = '#e2e8f0';
+                return;
+            }
+
+            if (val.length < 10) {
+                phoneHint.textContent = '⚠️ شماره موبایل باید حداقل ۱۰ رقم باشد';
+                phoneHint.className = 'hint error';
+                phoneInput.style.borderColor = '#fc8181';
+                return;
+            }
+
+            const exists = database.users.some(u => u.phone === val);
+            if (exists) {
+                phoneHint.textContent = '❌ این شماره قبلاً ثبت‌نام شده است';
+                phoneHint.className = 'hint error';
+                phoneInput.style.borderColor = '#fc8181';
+            } else {
+                phoneHint.textContent = '✅ شماره موبایل معتبر است';
+                phoneHint.className = 'hint success';
+                phoneInput.style.borderColor = '#48bb78';
+            }
+        });
+
+        // ================================================================
+        //  USERNAME REAL-TIME CHECK
+        // ================================================================
+        usernameInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+
+            if (!val) {
+                usernameHint.textContent = 'نام کاربری خود را انتخاب کنید';
+                usernameHint.className = 'hint';
+                usernameInput.style.borderColor = '#e2e8f0';
+                return;
+            }
+
+            if (!/^[a-zA-Z0-9_]+$/.test(val)) {
+                usernameHint.textContent = '⚠️ فقط حروف انگلیسی، اعداد و زیرخط مجاز است';
+                usernameHint.className = 'hint error';
+                usernameInput.style.borderColor = '#fc8181';
+                return;
+            }
+
+            if (val.length < 3) {
+                usernameHint.textContent = '⚠️ نام کاربری حداقل ۳ کاراکتر';
+                usernameHint.className = 'hint error';
+                usernameInput.style.borderColor = '#fc8181';
+                return;
+            }
+
+            if (isUsernameTaken(val)) {
+                usernameHint.textContent = '❌ این نام کاربری قبلاً ثبت شده است';
+                usernameHint.className = 'hint error';
+                usernameInput.style.borderColor = '#fc8181';
+            } else {
+                usernameHint.textContent = '✅ نام کاربری موجود است';
+                usernameHint.className = 'hint success';
+                usernameInput.style.borderColor = '#48bb78';
+            }
+        });
+
+        // ================================================================
+        //  BUSINESS INPUT
+        // ================================================================
+        businessInput.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if (val.length >= 2) {
+                businessHint.textContent = '✅ نام کسب و کار معتبر است';
+                businessHint.className = 'hint success';
+                businessInput.style.borderColor = '#48bb78';
+            } else {
+                businessHint.textContent = 'نام کسب و کار خود را وارد کنید';
+                businessHint.className = 'hint';
+                businessInput.style.borderColor = '#e2e8f0';
+            }
+        });
+
+        // ================================================================
+        //  HANDLE REGISTER
+        // ================================================================
+        function handleRegister(e) {
+            e.preventDefault();
+
+            const business = businessInput.value.trim();
+            const username = usernameInput.value.trim();
+            const phone = phoneInput.value.trim();
+
+            if (business.length < 2) {
+                alert('لطفاً نام کسب و کار را وارد کنید');
+                businessInput.focus();
+                return;
+            }
+
+            if (!username || username.length < 3) {
+                alert('نام کاربری باید حداقل ۳ کاراکتر باشد');
+                usernameInput.focus();
+                return;
+            }
+
+            if (isUsernameTaken(username)) {
+                alert('این نام کاربری قبلاً ثبت شده است');
+                usernameInput.focus();
+                return;
+            }
+
+            const phoneClean = toEnglishDigits(phone);
+            if (phoneClean.length < 10) {
+                alert('شماره موبایل باید حداقل ۱۰ رقم باشد');
+                phoneInput.focus();
+                return;
+            }
+
+            if (database.users.some(u => u.phone === phoneClean)) {
+                alert('این شماره موبایل قبلاً ثبت‌نام شده است');
+                phoneInput.focus();
+                return;
+            }
+
+            const newUser = {
+                username: username,
+                phone: phoneClean,
+                business: business,
+            };
+
+            database.users.push(newUser);
+            console.log('✅ کاربر جدید ثبت شد:', newUser);
+
+            localStorage.setItem('hostUser', JSON.stringify({
+                username: newUser.username,
+                phone: newUser.phone,
+                business: newUser.business,
+                isNew: true
+            }));
+
+            registerBtn.disabled = true;
+            registerBtn.innerHTML = '<span class="spinner"></span> در حال ثبت‌نام...';
+
+            setTimeout(() => {
+                window.location.href = `otp.html?role=host&username=${encodeURIComponent(username)}&new=true`;
+            }, 1500);
+        }
+
+        console.log('✅ صفحه ثبت‌نام میزبان بارگذاری شد');
+        console.log('📝 کاربران موجود:', database.users.map(u => u.username).join(', '));
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اینبار | ایجاد پلن نقشه‌ای</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            color: #1a2332;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #1a2332;
+        }
+
+        .header .back-btn:hover {
+            background: #f0f4f8;
+            border-color: #6c5ce7;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .header h1 span {
+            color: #6c5ce7;
+        }
+
+        .header .plan-name-input {
+            flex: 1;
+            padding: 8px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: 'Vazir', sans-serif;
+            background: #fff;
+            transition: all 0.3s;
+            text-align: right;
+            min-width: 120px;
+        }
+
+        .header .plan-name-input:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.08);
+        }
+
+        .header .plan-name-input::placeholder {
+            color: #a0aec0;
+        }
+
+        /* ===== INFO ROW ===== */
+        .info-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .info-box {
+            background: #fff;
+            border-radius: 14px;
+            padding: 12px 14px;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .info-box .ib-label {
+            font-size: 11px;
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .info-box .ib-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a2332;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 2px;
+        }
+
+        .info-box .ib-value input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: 'Vazir', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a2332;
+            padding: 0;
+        }
+
+        .info-box .ib-value input:focus {
+            outline: none;
+        }
+
+        .info-box .ib-value input[type="date"] {
+            direction: ltr;
+            text-align: left;
+            font-weight: 400;
+            font-size: 13px;
+        }
+
+        /* ===== RANK SELECTOR ===== */
+        .rank-selector {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .rank-selector .rank-option {
+            padding: 4px 14px;
+            border-radius: 50px;
+            border: 2px solid #e2e8f0;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f7fafc;
+            font-family: 'Vazir', sans-serif;
+            color: #4a5568;
+        }
+
+        .rank-selector .rank-option:hover {
+            border-color: #a29bfe;
+            background: #f8f7ff;
+        }
+
+        .rank-selector .rank-option.active {
+            border-color: #6c5ce7;
+            background: #edeafb;
+            color: #6c5ce7;
+        }
+
+        .rank-selector .rank-option .ro-icon {
+            margin-left: 4px;
+        }
+
+        /* ===== MAP CONTAINER ===== */
+        .map-container {
+            background: #fff;
+            border-radius: 24px;
+            padding: 24px 16px 20px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            margin-bottom: 20px;
+            min-height: 320px;
+            position: relative;
+        }
+
+        .map-title {
+            text-align: center;
+            font-size: 13px;
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .map-title span {
+            color: #6c5ce7;
+            font-weight: 600;
+        }
+
+        /* ===== STEPS ===== */
+        .steps-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            position: relative;
+            padding: 0 8px;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 14px;
+            position: relative;
+            padding: 4px 0;
+        }
+
+        .step-item .step-line {
+            position: absolute;
+            right: 18px;
+            top: 36px;
+            bottom: -6px;
+            width: 3px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            transition: background 0.5s;
+        }
+
+        .step-item:last-child .step-line {
+            display: none;
+        }
+
+        .step-item .step-line.active {
+            background: linear-gradient(180deg, #6c5ce7, #a29bfe);
+        }
+
+        .step-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 3px dashed #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: #a0aec0;
+            flex-shrink: 0;
+            background: #fff;
+            transition: all 0.4s;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .step-circle.filled {
+            border: 3px solid #6c5ce7;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.2);
+        }
+
+        .step-circle.filled .step-number {
+            display: none;
+        }
+
+        .step-circle .step-icon {
+            display: none;
+            font-size: 16px;
+        }
+
+        .step-circle.filled .step-icon {
+            display: block;
+        }
+
+        .step-circle.empty {
+            border: 3px dashed #e2e8f0;
+            background: #f7fafc;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .step-circle.empty:hover {
+            border-color: #6c5ce7;
+            background: #edeafb;
+            transform: scale(1.05);
+        }
+
+        .step-circle.empty .step-plus {
+            font-size: 18px;
+            color: #6c5ce7;
+            font-weight: 300;
+        }
+
+        .step-info {
+            flex: 1;
+            padding: 2px 0;
+        }
+
+        .step-info .step-label {
+            font-size: 12px;
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+            transition: color 0.3s;
+        }
+
+        .step-info .step-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a2332;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .step-info .step-detail {
+            font-size: 11px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .step-item.filled .step-label {
+            color: #6c5ce7;
+        }
+
+        .step-item .step-remove {
+            background: none;
+            border: none;
+            color: #a0aec0;
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 4px;
+            opacity: 0;
+        }
+
+        .step-item:hover .step-remove {
+            opacity: 1;
+        }
+
+        .step-item .step-remove:hover {
+            color: #fc8181;
+        }
+
+        /* ===== TREASURE ===== */
+        .treasure-step {
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 2px dashed #e2e8f0;
+        }
+
+        .treasure-step .step-circle {
+            border-color: #f6ad55;
+            background: #fef3c7;
+        }
+
+        .treasure-step .step-circle.filled {
+            border-color: #f6ad55;
+            background: linear-gradient(135deg, #f6ad55, #ed8936);
+            box-shadow: 0 4px 16px rgba(237, 137, 54, 0.25);
+        }
+
+        .treasure-step .step-info .step-label {
+            color: #d97706;
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 20px 16px;
+            color: #a0aec0;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .empty-state .empty-text {
+            font-size: 14px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .empty-state .empty-hint {
+            font-size: 12px;
+            margin-top: 2px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .add-btn-wrap {
+            text-align: center;
+            margin-top: 12px;
+        }
+
+        .add-btn-wrap .add-btn {
+            background: #f7fafc;
+            border: 2px dashed #e2e8f0;
+            padding: 10px 28px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazir', sans-serif;
+            color: #4a5568;
+        }
+
+        .add-btn-wrap .add-btn:hover {
+            border-color: #6c5ce7;
+            background: #edeafb;
+            color: #6c5ce7;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.25);
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(108, 92, 231, 0.35);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            background: transparent;
+            color: #6c5ce7;
+            border: 2px solid #e2e8f0;
+            padding: 13px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 12px;
+        }
+
+        .btn-secondary:hover {
+            border-color: #6c5ce7;
+            background: #f8f7ff;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s ease-in-out infinite;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #fff;
+            border-radius: 28px;
+            padding: 28px 24px 24px;
+            max-width: 420px;
+            width: 100%;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.2);
+            animation: modalIn 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalIn {
+            from {
+                transform: scale(0.9) translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-box .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .modal-box .modal-header h3 {
+            font-size: 17px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .modal-box .modal-header .modal-close {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: #f0f4f8;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #4a5568;
+        }
+
+        .modal-box .modal-header .modal-close:hover {
+            background: #fee2e2;
+            color: #fc8181;
+        }
+
+        .modal-box .form-group {
+            margin-bottom: 14px;
+        }
+
+        .modal-box .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 13px;
+            color: #2d3748;
+            margin-bottom: 5px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .modal-box .form-group input,
+        .modal-box .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: 'Vazir', sans-serif;
+            transition: all 0.3s;
+            background: #f7fafc;
+            color: #1a2332;
+            text-align: right;
+        }
+
+        .modal-box .form-group input:focus,
+        .modal-box .form-group select:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.08);
+        }
+
+        .modal-box .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23718096' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 14px center;
+            padding-left: 40px;
+        }
+
+        .modal-box .form-group .hint {
+            font-size: 11px;
+            color: #a0aec0;
+            margin-top: 3px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .modal-box .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .modal-box .modal-actions .btn-modal-primary {
+            flex: 1;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            border: none;
+            padding: 11px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Vazir', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .modal-box .modal-actions .btn-modal-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.3);
+        }
+
+        .modal-box .modal-actions .btn-modal-secondary {
+            flex: 1;
+            background: #f7fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+            padding: 11px;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Vazir', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .modal-box .modal-actions .btn-modal-secondary:hover {
+            border-color: #fc8181;
+            color: #fc8181;
+            background: #fff5f5;
+        }
+
+        .modal-box .prize-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .modal-box .prize-option {
+            padding: 10px 6px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #f7fafc;
+            font-family: 'Vazir', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .modal-box .prize-option:hover {
+            border-color: #a29bfe;
+            background: #f8f7ff;
+        }
+
+        .modal-box .prize-option.active {
+            border-color: #6c5ce7;
+            background: #edeafb;
+            color: #6c5ce7;
+        }
+
+        .modal-box .prize-option .po-icon {
+            display: block;
+            font-size: 22px;
+            margin-bottom: 2px;
+        }
+
+        .modal-box textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: 'Vazir', sans-serif;
+            transition: all 0.3s;
+            background: #f7fafc;
+            color: #1a2332;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .modal-box textarea:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.08);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .map-container {
+                padding: 16px 10px 14px;
+                border-radius: 18px;
+            }
+
+            .step-circle {
+                width: 32px;
+                height: 32px;
+                font-size: 13px;
+            }
+
+            .step-item .step-line {
+                right: 15px;
+                top: 30px;
+            }
+
+            .step-info .step-value {
+                font-size: 13px;
+            }
+
+            .step-info .step-detail {
+                font-size: 10px;
+            }
+
+            .modal-box {
+                padding: 20px 16px 18px;
+                border-radius: 20px;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .header {
+                gap: 8px;
+            }
+
+            .header .plan-name-input {
+                flex: 1 1 100%;
+                order: 3;
+            }
+
+            .rank-selector .rank-option {
+                font-size: 11px;
+                padding: 3px 10px;
+            }
+
+            .modal-box .prize-options {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .modal-box .prize-options {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div class="header">
+            <button class="back-btn" onclick="history.back()">→</button>
+            <h1>🗺️ نقشه <span>پلن</span></h1>
+            <input class="plan-name-input" id="planName" placeholder="اسم پلن..." />
+        </div>
+
+        <!-- ===== INFO ROW ===== -->
+        <div class="info-row">
+            <div class="info-box">
+                <div class="ib-label">📅 تاریخ شروع</div>
+                <div class="ib-value">
+                    <input type="date" id="startDate" />
+                </div>
+            </div>
+            <div class="info-box">
+                <div class="ib-label">📅 تاریخ پایان</div>
+                <div class="ib-value">
+                    <input type="date" id="endDate" />
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== RANK SELECTOR ===== -->
+        <div class="info-box" style="margin-bottom:16px;">
+            <div class="ib-label">🏅 رنک مجاز</div>
+            <div class="rank-selector" id="rankSelector">
+                <div class="rank-option" data-rank="bronze" onclick="selectRank('bronze')">
+                    <span class="ro-icon">🥉</span> برنز
+                </div>
+                <div class="rank-option" data-rank="silver" onclick="selectRank('silver')">
+                    <span class="ro-icon">🥈</span> نقره
+                </div>
+                <div class="rank-option active" data-rank="gold" onclick="selectRank('gold')">
+                    <span class="ro-icon">🥇</span> طلا
+                </div>
+                <div class="rank-option" data-rank="platinum" onclick="selectRank('platinum')">
+                    <span class="ro-icon">💎</span> پلاتین
+                </div>
+                <div class="rank-option" data-rank="diamond" onclick="selectRank('diamond')">
+                    <span class="ro-icon">🌟</span> الماس
+                </div>
+            </div>
+            <div style="font-size:11px; color:#a0aec0; font-family:'Vazir',sans-serif; margin-top:4px;">
+                کاربران با این رنک و بالاتر می‌توانند در پلن شرکت کنند
+            </div>
+        </div>
+
+        <!-- ===== MAP ===== -->
+        <div class="map-container">
+            <div class="map-title">
+                🎯 مسیر رسیدن به <span>جایزه</span>
+            </div>
+
+            <div class="steps-wrapper" id="stepsWrapper">
+                <!-- توسط JS پر میشه -->
+            </div>
+
+            <div class="empty-state" id="emptyState">
+                <span class="empty-icon">🗺️</span>
+                <div class="empty-text">هنوز مرحله‌ای تعریف نشده</div>
+                <div class="empty-hint">مراحل رسیدن به جایزه را بسازید</div>
+            </div>
+
+            <div class="add-btn-wrap">
+                <button class="add-btn" onclick="openModal()">➕ افزودن مرحله</button>
+            </div>
+        </div>
+
+        <!-- ===== SUBMIT ===== -->
+        <button class="btn-primary" id="submitBtn" onclick="createPlan()" disabled>
+            🏆 ایجاد پلن
+        </button>
+
+        <button class="btn-secondary" onclick="window.location.href='myplans.html'">
+            ← بازگشت به لیست پلن‌ها
+        </button>
+
+    </div>
+
+    <!-- ===== MODAL مرحله ===== -->
+    <div class="modal-overlay" id="stepModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>➕ افزودن مرحله جدید</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+
+            <div class="form-group">
+                <label>نوع مرحله</label>
+                <select id="modalStepType" onchange="handleModalTypeChange()">
+                    <option value="">انتخاب کنید...</option>
+                    <option value="invite">📨 دعوت</option>
+                    <option value="visit">📊 تعداد مراجعه</option>
+                    <option value="instagram">📷 دنبال کردن اینستا</option>
+                    <option value="order">🛒 سفارش</option>
+                    <option value="order_amount">💰 سفارش بیش از مبلغ</option>
+                    <option value="order_item">🎯 سفارش آیتم خاص</option>
+                </select>
+                <div class="hint">نوع عملی که کاربر باید انجام دهد</div>
+            </div>
+
+            <div id="modalFields">
+                <!-- توسط JS پر میشه -->
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-modal-secondary" onclick="closeModal()">لغو</button>
+                <button class="btn-modal-primary" onclick="addStep()">➕ افزودن</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL جایزه ===== -->
+    <div class="modal-overlay" id="prizeModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>🎁 تنظیم جایزه نهایی</h3>
+                <button class="modal-close" onclick="closePrizeModal()">✕</button>
+            </div>
+
+            <div class="form-group">
+                <label>نوع جایزه</label>
+                <div class="prize-options">
+                    <div class="prize-option" data-prize="rank" onclick="selectPrizeType('rank')">
+                        <span class="po-icon">🏆</span>
+                        افزایش رنک
+                    </div>
+                    <div class="prize-option" data-prize="discount" onclick="selectPrizeType('discount')">
+                        <span class="po-icon">💰</span>
+                        تخفیف
+                    </div>
+                    <div class="prize-option" data-prize="custom" onclick="selectPrizeType('custom')">
+                        <span class="po-icon">✏️</span>
+                        متن دلخواه
+                    </div>
+                </div>
+                <div class="hint">نوع جایزه را انتخاب کنید</div>
+            </div>
+
+            <div id="prizeFields">
+                <!-- توسط JS پر میشه -->
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-modal-secondary" onclick="closePrizeModal()">لغو</button>
+                <button class="btn-modal-primary" onclick="savePrize()">💾 ذخیره جایزه</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        //  STATE
+        // ================================================================
+        let steps = [];
+        let selectedPrize = null;
+        let selectedRank = 'gold';
+
+        // ================================================================
+        //  RANK SELECTOR
+        // ================================================================
+        function selectRank(rank) {
+            selectedRank = rank;
+            document.querySelectorAll('.rank-selector .rank-option').forEach(el => {
+                el.classList.toggle('active', el.dataset.rank === rank);
+            });
+            updateSubmitState();
+        }
+
+        // ================================================================
+        //  RENDER STEPS
+        // ================================================================
+        function renderSteps() {
+            const wrapper = document.getElementById('stepsWrapper');
+            const empty = document.getElementById('emptyState');
+
+            if (steps.length === 0) {
+                wrapper.innerHTML = '';
+                empty.style.display = 'block';
+                updateSubmitState();
+                return;
+            }
+
+            empty.style.display = 'none';
+
+            const stepIcons = {
+                invite: '📨',
+                visit: '📊',
+                instagram: '📷',
+                order: '🛒',
+                order_amount: '💰',
+                order_item: '🎯'
+            };
+
+            const stepLabels = {
+                invite: 'دعوت',
+                visit: 'مراجعه',
+                instagram: 'دنبال کردن',
+                order: 'سفارش',
+                order_amount: 'سفارش بیش از',
+                order_item: 'سفارش آیتم'
+            };
+
+            let html = '';
+
+            steps.forEach((step, index) => {
+                const isLast = index === steps.length - 1;
+                const icon = stepIcons[step.type] || '📌';
+                const label = stepLabels[step.type] || step.type;
+
+                let detail = '';
+                switch (step.type) {
+                    case 'invite':
+                        detail = `${step.count} نفر`;
+                        break;
+                    case 'visit':
+                        detail = `${step.count} بار`;
+                        break;
+                    case 'instagram':
+                        detail = `@${step.username}`;
+                        break;
+                    case 'order':
+                        detail = `هر سفارش`;
+                        break;
+                    case 'order_amount':
+                        detail = `${step.amount.toLocaleString()} تومان`;
+                        break;
+                    case 'order_item':
+                        detail = step.item;
+                        break;
+                }
+
+                html += `
+                            <div class="step-item filled">
+                                <div class="step-line ${isLast ? '' : 'active'}"></div>
+                                <div class="step-circle filled" onclick="editStep(${index})">
+                                    <span class="step-number">${index + 1}</span>
+                                    <span class="step-icon">${icon}</span>
+                                </div>
+                                <div class="step-info">
+                                    <div class="step-label">مرحله ${index + 1} · ${label}</div>
+                                    <div class="step-value">${detail}</div>
+                                    <div class="step-detail">${step.type === 'instagram' ? 'دنبال کردن صفحه' : step.type === 'order' ? 'هر بار سفارش' : ''}</div>
+                                </div>
+                                <button class="step-remove" onclick="event.stopPropagation(); removeStep(${index})">✕</button>
+                            </div>
+                        `;
+            });
+
+            // جایزه
+            const prizeEmoji = selectedPrize === 'rank' ? '🏆' :
+                selectedPrize === 'discount' ? '💰' : '🎁';
+
+            let prizeDetail = '';
+            switch (selectedPrize) {
+                case 'rank':
+                    const rankVal = document.getElementById('rankIncrease')?.value || '?';
+                    prizeDetail = `افزایش ${rankVal} رنک`;
+                    break;
+                case 'discount':
+                    const discVal = document.getElementById('discountPercent')?.value || '?';
+                    prizeDetail = `${discVal}٪ تخفیف`;
+                    break;
+                case 'custom':
+                    const customVal = document.getElementById('customPrizeText')?.value || '(متن خالی)';
+                    prizeDetail = `"${customVal}"`;
+                    break;
+                default:
+                    prizeDetail = 'تنظیم نشده';
+            }
+
+            html += `
+                        <div class="step-item treasure-step filled" onclick="openPrizeModal()">
+                            <div class="step-circle filled" style="border-color:#f6ad55; background:linear-gradient(135deg,#f6ad55,#ed8936);">
+                                <span class="step-icon">🎁</span>
+                            </div>
+                            <div class="step-info">
+                                <div class="step-label" style="color:#d97706;">🎁 جایزه نهایی</div>
+                                <div class="step-value">${prizeDetail}</div>
+                                <div class="step-detail">${selectedPrize ? 'برای ویرایش کلیک کنید' : 'هنوز تنظیم نشده'}</div>
+                            </div>
+                            <button class="step-remove" onclick="event.stopPropagation(); resetPrize()" style="opacity:1;">✕</button>
+                        </div>
+                    `;
+
+            wrapper.innerHTML = html;
+            updateSubmitState();
+        }
+
+        // ================================================================
+        //  UPDATE SUBMIT STATE
+        // ================================================================
+        function updateSubmitState() {
+            const btn = document.getElementById('submitBtn');
+            const hasSteps = steps.length > 0;
+            const hasPrize = selectedPrize !== null;
+            const hasName = document.getElementById('planName').value.trim().length > 0;
+            const hasDates = document.getElementById('startDate').value && document.getElementById('endDate').value;
+
+            btn.disabled = !(hasSteps && hasPrize && hasName && hasDates);
+        }
+
+        // ================================================================
+        //  MODAL - ADD STEP
+        // ================================================================
+        function openModal() {
+            document.getElementById('stepModal').classList.add('show');
+            document.getElementById('modalStepType').value = '';
+            document.getElementById('modalFields').innerHTML = '';
+            setTimeout(() => document.getElementById('modalStepType').focus(), 100);
+        }
+
+        function closeModal() {
+            document.getElementById('stepModal').classList.remove('show');
+        }
+
+        function handleModalTypeChange() {
+            const type = document.getElementById('modalStepType').value;
+            const container = document.getElementById('modalFields');
+
+            if (!type) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+
+            switch (type) {
+                case 'invite':
+                    html = `
+                                <div class="form-group">
+                                    <label>تعداد دعوت</label>
+                                    <input type="number" id="modalInviteCount" placeholder="مثلاً: ۵" min="1" />
+                                    <div class="hint">چند نفر را باید دعوت کند؟</div>
+                                </div>
+                            `;
+                    break;
+                case 'visit':
+                    html = `
+                                <div class="form-group">
+                                    <label>تعداد مراجعه</label>
+                                    <input type="number" id="modalVisitCount" placeholder="مثلاً: ۱۰" min="1" />
+                                    <div class="hint">چند بار باید مراجعه کند؟</div>
+                                </div>
+                            `;
+                    break;
+                case 'instagram':
+                    html = `
+                                <div class="form-group">
+                                    <label>نام کاربری اینستاگرام</label>
+                                    <input type="text" id="modalInstagramUser" placeholder="cafe_mizban" />
+                                    <div class="hint">کدام صفحه را باید دنبال کند؟</div>
+                                </div>
+                            `;
+                    break;
+                case 'order':
+                    html = `
+                                <div class="form-group">
+                                    <label>شرط سفارش</label>
+                                    <input type="text" id="modalOrderNote" placeholder="هر بار سفارش" value="هر بار سفارش" disabled style="opacity:0.7; background:#f0f4f8;" />
+                                    <div class="hint">کاربر با هر بار سفارش یک مرحله جلو می‌رود</div>
+                                </div>
+                            `;
+                    break;
+                case 'order_amount':
+                    html = `
+                                <div class="form-group">
+                                    <label>حداقل مبلغ سفارش (تومان)</label>
+                                    <input type="number" id="modalOrderAmount" placeholder="مثلاً: ۱۰۰۰۰۰" min="1" />
+                                    <div class="hint">سفارش بالاتر از این مبلغ</div>
+                                </div>
+                            `;
+                    break;
+                case 'order_item':
+                    html = `
+                                <div class="form-group">
+                                    <label>نام آیتم خاص</label>
+                                    <input type="text" id="modalOrderItem" placeholder="مثلاً: قهوه اسپرسو" />
+                                    <div class="hint">کدام آیتم باید سفارش داده شود؟</div>
+                                </div>
+                            `;
+                    break;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function addStep() {
+            const type = document.getElementById('modalStepType').value;
+
+            if (!type) {
+                alert('❌ لطفاً نوع مرحله را انتخاب کنید');
+                return;
+            }
+
+            const stepData = { type: type };
+
+            switch (type) {
+                case 'invite':
+                    const inviteCount = document.getElementById('modalInviteCount')?.value;
+                    if (!inviteCount || inviteCount < 1) {
+                        alert('❌ لطفاً تعداد دعوت را وارد کنید');
+                        return;
+                    }
+                    stepData.count = parseInt(inviteCount);
+                    break;
+                case 'visit':
+                    const visitCount = document.getElementById('modalVisitCount')?.value;
+                    if (!visitCount || visitCount < 1) {
+                        alert('❌ لطفاً تعداد مراجعه را وارد کنید');
+                        return;
+                    }
+                    stepData.count = parseInt(visitCount);
+                    break;
+                case 'instagram':
+                    const username = document.getElementById('modalInstagramUser')?.value.trim();
+                    if (!username) {
+                        alert('❌ لطفاً نام کاربری اینستاگرام را وارد کنید');
+                        return;
+                    }
+                    stepData.username = username;
+                    break;
+                case 'order':
+                    stepData.note = 'هر بار سفارش';
+                    break;
+                case 'order_amount':
+                    const amount = document.getElementById('modalOrderAmount')?.value;
+                    if (!amount || amount < 1) {
+                        alert('❌ لطفاً مبلغ سفارش را وارد کنید');
+                        return;
+                    }
+                    stepData.amount = parseInt(amount);
+                    break;
+                case 'order_item':
+                    const item = document.getElementById('modalOrderItem')?.value.trim();
+                    if (!item) {
+                        alert('❌ لطفاً نام آیتم خاص را وارد کنید');
+                        return;
+                    }
+                    stepData.item = item;
+                    break;
+            }
+
+            steps.push(stepData);
+            closeModal();
+            renderSteps();
+        }
+
+        // ================================================================
+        //  EDIT / REMOVE STEP
+        // ================================================================
+        function editStep(index) {
+            alert(`✏️ مرحله ${index + 1}\nنوع: ${steps[index].type}\nبرای ویرایش، مرحله رو حذف و دوباره اضافه کنید.`);
+        }
+
+        function removeStep(index) {
+            if (confirm(`❌ آیا از حذف مرحله ${index + 1} مطمئن هستید؟`)) {
+                steps.splice(index, 1);
+                renderSteps();
+            }
+        }
+
+        // ================================================================
+        //  PRIZE MODAL
+        // ================================================================
+        function openPrizeModal() {
+            document.getElementById('prizeModal').classList.add('show');
+            document.querySelectorAll('#prizeModal .prize-option').forEach(el => el.classList.remove('active'));
+
+            // اگر قبلاً جایزه انتخاب شده بود، نشان بده
+            if (selectedPrize) {
+                document.querySelectorAll('#prizeModal .prize-option').forEach(el => {
+                    if (el.dataset.prize === selectedPrize) {
+                        el.classList.add('active');
+                    }
+                });
+                // فیلدهای قبلی رو نشون بده
+                const container = document.getElementById('prizeFields');
+                let html = '';
+                switch (selectedPrize) {
+                    case 'rank':
+                        html = `
+                                    <div class="form-group">
+                                        <label>تعداد رنک افزایش</label>
+                                        <input type="number" id="rankIncrease" placeholder="مثلاً: ۵" min="1" value="${document.getElementById('rankIncrease')?.value || ''}" />
+                                        <div class="hint">چند سطح رنک افزایش یابد؟</div>
+                                    </div>
+                                `;
+                        break;
+                    case 'discount':
+                        html = `
+                                    <div class="form-group">
+                                        <label>درصد تخفیف</label>
+                                        <input type="number" id="discountPercent" placeholder="مثلاً: ۲۰" min="1" max="100" value="${document.getElementById('discountPercent')?.value || ''}" />
+                                        <div class="hint">چند درصد تخفیف؟</div>
+                                    </div>
+                                `;
+                        break;
+                    case 'custom':
+                        html = `
+                                    <div class="form-group">
+                                        <label>متن جایزه</label>
+                                        <textarea id="customPrizeText" rows="2" placeholder="مثلاً: یک قهوه ویژه به انتخاب شما">${document.getElementById('customPrizeText')?.value || ''}</textarea>
+                                        <div class="hint">متن دلخواه خود را وارد کنید</div>
+                                    </div>
+                                `;
+                        break;
+                }
+                container.innerHTML = html;
+            } else {
+                document.getElementById('prizeFields').innerHTML = '';
+            }
+
+            document.getElementById('prizeModal').classList.add('show');
+        }
+
+        function closePrizeModal() {
+            document.getElementById('prizeModal').classList.remove('show');
+        }
+
+        function selectPrizeType(type) {
+            selectedPrize = type;
+            document.querySelectorAll('#prizeModal .prize-option').forEach(el => {
+                el.classList.toggle('active', el.dataset.prize === type);
+            });
+
+            const container = document.getElementById('prizeFields');
+            let html = '';
+
+            switch (type) {
+                case 'rank':
+                    html = `
+                                <div class="form-group">
+                                    <label>تعداد رنک افزایش</label>
+                                    <input type="number" id="rankIncrease" placeholder="مثلاً: ۵" min="1" />
+                                    <div class="hint">چند سطح رنک افزایش یابد؟</div>
+                                </div>
+                            `;
+                    break;
+                case 'discount':
+                    html = `
+                                <div class="form-group">
+                                    <label>درصد تخفیف</label>
+                                    <input type="number" id="discountPercent" placeholder="مثلاً: ۲۰" min="1" max="100" />
+                                    <div class="hint">چند درصد تخفیف؟</div>
+                                </div>
+                            `;
+                    break;
+                case 'custom':
+                    html = `
+                                <div class="form-group">
+                                    <label>متن جایزه</label>
+                                    <textarea id="customPrizeText" rows="2" placeholder="مثلاً: یک قهوه ویژه به انتخاب شما"></textarea>
+                                    <div class="hint">متن دلخواه خود را وارد کنید</div>
+                                </div>
+                            `;
+                    break;
+            }
+
+            container.innerHTML = html;
+        }
+
+        function savePrize() {
+            if (!selectedPrize) {
+                alert('❌ لطفاً نوع جایزه را انتخاب کنید');
+                return;
+            }
+
+            switch (selectedPrize) {
+                case 'rank':
+                    const rank = document.getElementById('rankIncrease')?.value;
+                    if (!rank || rank < 1) {
+                        alert('❌ لطفاً تعداد رنک افزایش را وارد کنید');
+                        return;
+                    }
+                    break;
+                case 'discount':
+                    const disc = document.getElementById('discountPercent')?.value;
+                    if (!disc || disc < 1 || disc > 100) {
+                        alert('❌ لطفاً درصد تخفیف را وارد کنید (۱ تا ۱۰۰)');
+                        return;
+                    }
+                    break;
+                case 'custom':
+                    const custom = document.getElementById('customPrizeText')?.value.trim();
+                    if (!custom) {
+                        alert('❌ لطفاً متن جایزه را وارد کنید');
+                        return;
+                    }
+                    break;
+            }
+
+            closePrizeModal();
+            renderSteps();
+        }
+
+        function resetPrize() {
+            if (confirm('❌ آیا از حذف جایزه نهایی مطمئن هستید؟')) {
+                selectedPrize = null;
+                document.getElementById('prizeFields').innerHTML = '';
+                renderSteps();
+            }
+        }
+
+        // ================================================================
+        //  CREATE PLAN
+        // ================================================================
+        function createPlan() {
+            const name = document.getElementById('planName').value.trim();
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+
+            if (!name) {
+                alert('❌ لطفاً اسم پلن را وارد کنید');
+                document.getElementById('planName').focus();
+                return;
+            }
+
+            if (!startDate) {
+                alert('❌ لطفاً تاریخ شروع را انتخاب کنید');
+                document.getElementById('startDate').focus();
+                return;
+            }
+
+            if (!endDate) {
+                alert('❌ لطفاً تاریخ پایان را انتخاب کنید');
+                document.getElementById('endDate').focus();
+                return;
+            }
+
+            if (new Date(startDate) > new Date(endDate)) {
+                alert('❌ تاریخ شروع نباید از تاریخ پایان بزرگتر باشد');
+                document.getElementById('startDate').focus();
+                return;
+            }
+
+            if (steps.length === 0) {
+                alert('❌ حداقل یک مرحله به نقشه اضافه کنید');
+                return;
+            }
+
+            if (!selectedPrize) {
+                alert('❌ لطفاً جایزه نهایی را تنظیم کنید');
+                return;
+            }
+
+            const planData = {
+                name: name,
+                startDate: startDate,
+                endDate: endDate,
+                rank: selectedRank,
+                steps: steps,
+                prize: {
+                    type: selectedPrize,
+                    details: {}
+                }
+            };
+
+            switch (selectedPrize) {
+                case 'rank':
+                    planData.prize.details.rank = parseInt(document.getElementById('rankIncrease').value);
+                    break;
+                case 'discount':
+                    planData.prize.details.percent = parseInt(document.getElementById('discountPercent').value);
+                    break;
+                case 'custom':
+                    planData.prize.details.text = document.getElementById('customPrizeText').value.trim();
+                    break;
+            }
+
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> در حال ایجاد...';
+
+            console.log('🗺️ پلن نقشه‌ای:', planData);
+
+            setTimeout(() => {
+                const plans = JSON.parse(localStorage.getItem('hostPlans') || '[]');
+                planData.id = Date.now();
+                planData.createdAt = new Date().toISOString();
+                planData.status = 'active';
+                plans.push(planData);
+                localStorage.setItem('hostPlans', JSON.stringify(plans));
+
+                alert('✅ پلن نقشه‌ای با موفقیت ایجاد شد!');
+                window.location.href = 'myplans.html';
+            }, 1500);
+        }
+
+        // ================================================================
+        //  KEYBOARD SHORTCUTS
+        // ================================================================
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+                closePrizeModal();
+            }
+        });
+
+        // ================================================================
+        //  REAL-TIME UPDATE
+        // ================================================================
+        document.querySelectorAll('#planName, #startDate, #endDate').forEach(el => {
+            el.addEventListener('input', updateSubmitState);
+            el.addEventListener('change', updateSubmitState);
+        });
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        // تنظیم تاریخ امروز برای شروع
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('startDate').value = today;
+
+        // تاریخ پایان: ۳۰ روز بعد
+        const end = new Date();
+        end.setDate(end.getDate() + 30);
+        document.getElementById('endDate').value = end.toISOString().split('T')[0];
+
+        renderSteps();
+        console.log('✅ صفحه ایجاد پلن نقشه‌ای بارگذاری شد');
+    </script>
+
+</body>
+</html>

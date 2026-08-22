@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>اینبار | پلن‌های من</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #1a2332;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 16px 16px 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-left .back-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f4f8;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #1a2332;
+        }
+
+        .header-left .back-btn:hover {
+            background: #e8e4f8;
+        }
+
+        .header-left h1 {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .header-left h1 span {
+            color: #6c5ce7;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-actions .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f4f8;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .header-actions .icon-btn:hover {
+            background: #e8e4f8;
+        }
+
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin: 16px 0 20px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 4px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tabs .tab {
+            flex: 1;
+            min-width: 80px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazir', sans-serif;
+            background: transparent;
+            color: #a0aec0;
+            white-space: nowrap;
+        }
+
+        .tabs .tab.active {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.2);
+        }
+
+        .tabs .tab:hover:not(.active) {
+            background: #f0f4f8;
+            color: #4a5568;
+        }
+
+        .tabs .tab .tab-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0 8px;
+            border-radius: 50px;
+            font-size: 10px;
+            margin-right: 4px;
+        }
+
+        .tabs .tab.active .tab-badge {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* ===== PLAN CARDS ===== */
+        .plan-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .plan-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 18px 18px 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .plan-card.trend::before {
+            background: linear-gradient(180deg, #fc8181, #f56565);
+        }
+
+        .plan-card.my::before {
+            background: linear-gradient(180deg, #6c5ce7, #a29bfe);
+        }
+
+        .plan-card.hot::before {
+            background: linear-gradient(180deg, #f6ad55, #ed8936);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(108, 92, 231, 0.06);
+            border-color: #e2e8f0;
+        }
+
+        .plan-card.expanded {
+            border-color: #6c5ce7;
+            box-shadow: 0 8px 28px rgba(108, 92, 231, 0.1);
+        }
+
+        .plan-card .plan-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 4px;
+        }
+
+        .plan-card .plan-icon {
+            font-size: 28px;
+        }
+
+        .plan-card .plan-tag {
+            font-size: 10px;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .plan-card .plan-tag.trend {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .plan-card .plan-tag.my {
+            background: #edeafb;
+            color: #6c5ce7;
+        }
+
+        .plan-card .plan-tag.hot {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .plan-card .plan-name {
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 2px;
+        }
+
+        .plan-card .plan-host {
+            font-size: 13px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .plan-card .plan-host .host-name {
+            color: #1a2332;
+            font-weight: 500;
+        }
+
+        .plan-card .plan-progress {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .plan-card .plan-progress .progress-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            margin-bottom: 4px;
+        }
+
+        .plan-card .plan-progress .progress-top .percent {
+            font-weight: 700;
+            color: #6c5ce7;
+        }
+
+        .plan-card .plan-progress .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #f0f4f8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .plan-card .plan-progress .progress-bar .fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.8s ease;
+        }
+
+        .plan-card .plan-progress .progress-bar .fill.trend {
+            background: linear-gradient(90deg, #fc8181, #f56565);
+        }
+
+        .plan-card .plan-progress .progress-bar .fill.my {
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+        }
+
+        .plan-card .plan-progress .progress-bar .fill.hot {
+            background: linear-gradient(90deg, #f6ad55, #ed8936);
+        }
+
+        /* ===== EXPANDED STEPS ===== */
+        .plan-steps-expanded {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 2px dashed #e2e8f0;
+            display: none;
+        }
+
+        .plan-steps-expanded.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .plan-steps-expanded .step-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 6px 0;
+            position: relative;
+        }
+
+        .plan-steps-expanded .step-row .step-line-wrap {
+            position: relative;
+            width: 36px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 44px;
+        }
+
+        .plan-steps-expanded .step-row .step-line-wrap .step-line {
+            position: absolute;
+            top: 32px;
+            bottom: -4px;
+            width: 3px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            transition: background 0.5s;
+        }
+
+        .plan-steps-expanded .step-row:last-child .step-line-wrap .step-line {
+            display: none;
+        }
+
+        .plan-steps-expanded .step-row .step-line-wrap .step-line.done {
+            background: linear-gradient(180deg, #6c5ce7, #a29bfe);
+        }
+
+        .plan-steps-expanded .step-row .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 3px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            background: #f7fafc;
+            color: #a0aec0;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s;
+        }
+
+        .plan-steps-expanded .step-row .step-circle.done {
+            border-color: #6c5ce7;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.2);
+        }
+
+        .plan-steps-expanded .step-row .step-circle.treasure {
+            border-color: #f6ad55;
+            background: linear-gradient(135deg, #f6ad55, #ed8936);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(237, 137, 54, 0.25);
+        }
+
+        .plan-steps-expanded .step-row .step-circle .step-icon {
+            font-size: 12px;
+        }
+
+        .plan-steps-expanded .step-row .step-info {
+            flex: 1;
+        }
+
+        .plan-steps-expanded .step-row .step-info .step-label {
+            font-size: 11px;
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .plan-steps-expanded .step-row .step-info .step-value {
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .plan-steps-expanded .step-row .step-info .step-value.done-text {
+            color: #6c5ce7;
+        }
+
+        .plan-steps-expanded .step-row .step-status {
+            font-size: 11px;
+            font-weight: 600;
+            font-family: 'Vazir', sans-serif;
+            padding: 2px 12px;
+            border-radius: 50px;
+        }
+
+        .plan-steps-expanded .step-row .step-status.done {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .plan-steps-expanded .step-row .step-status.pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .plan-steps-expanded .step-row .step-status.locked {
+            background: #f1f5f9;
+            color: #94a3b8;
+        }
+
+        /* ===== PLAN FOOTER ===== */
+        .plan-card .plan-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .plan-card .plan-footer .plan-steps-mini {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .plan-card .plan-footer .plan-steps-mini .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+
+        .plan-card .plan-footer .plan-steps-mini .dot.done {
+            background: #6c5ce7;
+        }
+
+        .plan-card .plan-footer .plan-steps-mini .dot.treasure {
+            background: #f6ad55;
+        }
+
+        .plan-card .plan-footer .plan-action {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6c5ce7;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .plan-card .plan-footer .plan-action.complete {
+            color: #48bb78;
+        }
+
+        .plan-card .plan-footer .plan-action .arrow {
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .plan-card .plan-footer .plan-action .arrow.open {
+            transform: rotate(180deg);
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: #fff;
+            border-radius: 20px;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .empty-state .empty-title {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .empty-state .empty-desc {
+            font-size: 14px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 4px;
+        }
+
+        /* ===== BOTTOM NAV ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0 10px;
+            z-index: 200;
+        }
+
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            background: transparent;
+            border: none;
+            font-family: 'Vazir', sans-serif;
+            position: relative;
+        }
+
+        .bottom-nav .nav-item .nav-icon {
+            font-size: 22px;
+            transition: transform 0.2s;
+        }
+
+        .bottom-nav .nav-item .nav-label {
+            font-size: 10px;
+            color: #a0aec0;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .bottom-nav .nav-item.active .nav-label {
+            color: #6c5ce7;
+            font-weight: 700;
+        }
+
+        .bottom-nav .nav-item.active .nav-icon {
+            transform: scale(1.1);
+        }
+
+        .bottom-nav .nav-item.active {
+            background: #f0f4f8;
+        }
+
+        .bottom-nav .nav-item .nav-badge {
+            position: absolute;
+            top: 0;
+            right: 2px;
+            background: #fc8181;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .bottom-nav .nav-item.scan-btn {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -14px;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+            padding: 0;
+        }
+
+        .bottom-nav .nav-item.scan-btn .nav-icon {
+            font-size: 26px;
+            color: #fff;
+        }
+
+        .bottom-nav .nav-item.scan-btn .nav-label {
+            display: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 12px 10px;
+            }
+
+            .header-left h1 {
+                font-size: 16px;
+            }
+
+            .tabs {
+                gap: 4px;
+                margin: 12px 0 16px;
+            }
+
+            .tabs .tab {
+                font-size: 12px;
+                padding: 6px 10px;
+                min-width: 60px;
+            }
+
+            .plan-card {
+                padding: 14px 14px;
+            }
+
+            .plan-card .plan-icon {
+                font-size: 24px;
+            }
+
+            .plan-card .plan-name {
+                font-size: 14px;
+            }
+
+            .plan-steps-expanded .step-row .step-line-wrap {
+                width: 30px;
+                min-height: 38px;
+            }
+
+            .plan-steps-expanded .step-row .step-line-wrap .step-line {
+                top: 28px;
+            }
+
+            .plan-steps-expanded .step-row .step-circle {
+                width: 28px;
+                height: 28px;
+                font-size: 10px;
+            }
+
+            .plan-steps-expanded .step-row .step-info .step-value {
+                font-size: 12px;
+            }
+
+            .bottom-nav .nav-item {
+                padding: 2px 8px;
+            }
+
+            .bottom-nav .nav-item .nav-icon {
+                font-size: 20px;
+            }
+
+            .bottom-nav .nav-item .nav-label {
+                font-size: 9px;
+            }
+
+            .bottom-nav .nav-item.scan-btn {
+                width: 44px;
+                height: 44px;
+                margin-top: -10px;
+            }
+
+            .bottom-nav .nav-item.scan-btn .nav-icon {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="header-top">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='customer-home.html'">→</button>
+                <h1>📋 <span>پلن</span>‌ها</h1>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" onclick="alert('جستجوی پلن‌ها')">🔍</button>
+                <button class="icon-btn" onclick="alert('فیلتر')">⚙️</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <div class="container">
+
+        <!-- ===== TABS ===== -->
+        <div class="tabs">
+            <button class="tab active" data-tab="trend" onclick="switchTab('trend')">
+                🔥 ترند
+                <span class="tab-badge">۴</span>
+            </button>
+            <button class="tab" data-tab="my" onclick="switchTab('my')">
+                👤 پلن‌های من
+                <span class="tab-badge">۵</span>
+            </button>
+            <button class="tab" data-tab="hot" onclick="switchTab('hot')">
+                🌟 داغ‌ترین
+                <span class="tab-badge">۳</span>
+            </button>
+        </div>
+
+        <!-- ===== PLAN LIST ===== -->
+        <div class="plan-list" id="planList">
+            <!-- توسط JS پر میشه -->
+        </div>
+
+    </div>
+
+    <!-- ===== BOTTOM NAV ===== -->
+    <div class="bottom-nav">
+        <button class="nav-item" onclick="window.location.href='customer-home.html'">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">خانه</span>
+        </button>
+        <button class="nav-item active" onclick="window.location.href='my-plans-customer.html'">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">پلن‌ها</span>
+        </button>
+        <button class="nav-item scan-btn" onclick="window.location.href='scan.html'">
+            <span class="nav-icon">📸</span>
+            <span class="nav-label">اسکن</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='host-prizes.html'">
+            <span class="nav-icon">🎁</span>
+            <span class="nav-label">جوایز</span>
+            <span class="nav-badge">۲</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='my-profile-customer.html'">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">پروفایل</span>
+        </button>
+    </div>
+
+    <script>
+        // ================================================================
+        //  DATA - مطابق با پلن‌های میزبان
+        // ================================================================
+
+        const stepIcons = {
+            invite: '📨',
+            visit: '📊',
+            instagram: '📷',
+            order: '🛒',
+            order_amount: '💰',
+            order_item: '🎯'
+        };
+
+        const stepLabels = {
+            invite: 'دعوت',
+            visit: 'مراجعه',
+            instagram: 'دنبال کردن',
+            order: 'سفارش',
+            order_amount: 'سفارش بیش از',
+            order_item: 'سفارش آیتم'
+        };
+
+        // ===== پلن گنج قهوه (۱۰ مرحله‌ای) =====
+        const treasurePlan = {
+            id: 999,
+            icon: '🗺️',
+            name: 'گنج قهوه',
+            host: 'کافه میزبان',
+            progress: 78,
+            tag: '🔥 ترند',
+            tagType: 'trend',
+            steps: [
+                { type: 'invite', count: 3, done: true },
+                { type: 'visit', count: 2, done: true },
+                { type: 'order', done: true },
+                { type: 'instagram', username: 'cafe_mizban', done: true },
+                { type: 'visit', count: 3, done: true },
+                { type: 'order_amount', amount: 50000, done: false },
+                { type: 'invite', count: 2, done: false },
+                { type: 'order_item', item: 'قهوه اسپرسو', done: false },
+                { type: 'visit', count: 2, done: false },
+                { type: 'order', done: false }
+            ],
+            prize: {
+                type: 'custom',
+                details: { text: 'یک قهوه ویژه + دسر رایگان' }
+            }
+        };
+
+        // ===== پلن‌های دیگر =====
+        const samplePlans = [{
+            id: 1,
+            icon: '☕',
+            name: 'قهوه رایگان',
+            host: 'کافه میزبان',
+            progress: 100,
+            tag: '🔥 ترند',
+            tagType: 'trend',
+            steps: [
+                { type: 'visit', count: 3, done: true },
+                { type: 'order', done: true },
+                { type: 'instagram', username: 'cafe_mizban', done: true }
+            ],
+            prize: {
+                type: 'discount',
+                details: { percent: 20 }
+            }
+        }, {
+            id: 2,
+            icon: '🎁',
+            name: 'بسته غافلگیری',
+            host: 'کافه آرامش',
+            progress: 45,
+            tag: '👤 من',
+            tagType: 'my',
+            steps: [
+                { type: 'invite', count: 5, done: true },
+                { type: 'order_amount', amount: 100000, done: false },
+                { type: 'visit', count: 2, done: false }
+            ],
+            prize: {
+                type: 'rank',
+                details: { rank: 3 }
+            }
+        }, {
+            id: 3,
+            icon: '📚',
+            name: 'کتاب رایگان',
+            host: 'کافه کتاب',
+            progress: 60,
+            tag: '👤 من',
+            tagType: 'my',
+            steps: [
+                { type: 'order_item', item: 'کتاب هنر', done: true },
+                { type: 'visit', count: 2, done: false },
+                { type: 'instagram', username: 'cafe_book', done: false }
+            ],
+            prize: {
+                type: 'custom',
+                details: { text: 'یک کتاب هنر به انتخاب شما' }
+            }
+        }, {
+            id: 4,
+            icon: '🎵',
+            name: 'بلیت کنسرت',
+            host: 'کافه شب',
+            progress: 30,
+            tag: '👤 من',
+            tagType: 'my',
+            steps: [
+                { type: 'visit', count: 5, done: true },
+                { type: 'order_amount', amount: 200000, done: false },
+                { type: 'invite', count: 3, done: false }
+            ],
+            prize: {
+                type: 'custom',
+                details: { text: 'بلیت کنسرت ماه' }
+            }
+        }, {
+            id: 5,
+            icon: '🌟',
+            name: 'شب موسیقی',
+            host: 'کافه موزیک',
+            progress: 85,
+            tag: '🌟 داغ',
+            tagType: 'hot',
+            steps: [
+                { type: 'order', done: true },
+                { type: 'visit', count: 3, done: true },
+                { type: 'instagram', username: 'cafe_music', done: false }
+            ],
+            prize: {
+                type: 'discount',
+                details: { percent: 30 }
+            }
+        }];
+
+        // ترکیب همه پلن‌ها
+        const allPlans = [treasurePlan, ...samplePlans];
+
+        // ================================================================
+        //  STATE
+        // ================================================================
+        let currentTab = 'trend';
+        let expandedId = null;
+
+        const tabMap = {
+            trend: allPlans.filter(p => p.tagType === 'trend'),
+            my: allPlans.filter(p => p.tagType === 'my'),
+            hot: allPlans.filter(p => p.tagType === 'hot')
+        };
+
+        // ================================================================
+        //  SWITCH TAB
+        // ================================================================
+        function switchTab(tab) {
+            currentTab = tab;
+            expandedId = null;
+            document.querySelectorAll('.tabs .tab').forEach(el => {
+                el.classList.toggle('active', el.dataset.tab === tab);
+            });
+            renderPlans();
+        }
+
+        // ================================================================
+        //  TOGGLE EXPAND
+        // ================================================================
+        function toggleExpand(planId) {
+            if (expandedId === planId) {
+                expandedId = null;
+            } else {
+                expandedId = planId;
+            }
+            renderPlans();
+        }
+
+        // ================================================================
+        //  RENDER PLANS
+        // ================================================================
+        function renderPlans() {
+            const container = document.getElementById('planList');
+            const plans = tabMap[currentTab] || [];
+
+            // آپدیت شمارنده‌ها
+            document.querySelectorAll('.tabs .tab').forEach(el => {
+                const tab = el.dataset.tab;
+                const count = tabMap[tab]?.length || 0;
+                const badge = el.querySelector('.tab-badge');
+                if (badge) badge.textContent = count;
+            });
+
+            if (plans.length === 0) {
+                container.innerHTML = `
+                            <div class="empty-state">
+                                <span class="empty-icon">📭</span>
+                                <div class="empty-title">هیچ پلنی وجود ندارد</div>
+                                <div class="empty-desc">به زودی پلن‌های جدید اضافه می‌شوند</div>
+                            </div>
+                        `;
+                return;
+            }
+
+            container.innerHTML = plans.map(plan => {
+                const progress = plan.progress || 0;
+                const isComplete = progress >= 100;
+                const isExpanded = expandedId === plan.id;
+
+                // دایره‌های کوچک برای فوتر
+                let miniSteps = '';
+                const totalSteps = plan.steps.length;
+                const doneSteps = plan.steps.filter(s => s.done).length;
+                const showDots = Math.min(totalSteps, 4);
+
+                for (let i = 0; i < showDots; i++) {
+                    const isDone = i < doneSteps;
+                    miniSteps += `<div class="dot ${isDone ? 'done' : ''}"></div>`;
+                }
+                if (totalSteps > 4) {
+                    miniSteps += `<span style="font-size:9px; color:#a0aec0;">+${totalSteps - 4}</span>`;
+                }
+                miniSteps += `<div class="dot treasure"></div>`;
+
+                // ===== مراحل (برای بخش باز شده) =====
+                let stepsHtml = '';
+                plan.steps.forEach((step, index) => {
+                    const icon = stepIcons[step.type] || '📌';
+                    const label = stepLabels[step.type] || step.type;
+                    const isDone = step.done || false;
+                    const isLast = index === plan.steps.length - 1;
+
+                    let detail = '';
+                    switch (step.type) {
+                        case 'invite':
+                            detail = `دعوت ${step.count} نفر`;
+                            break;
+                        case 'visit':
+                            detail = `${step.count} بار مراجعه`;
+                            break;
+                        case 'instagram':
+                            detail = `دنبال کردن @${step.username}`;
+                            break;
+                        case 'order':
+                            detail = `هر بار سفارش`;
+                            break;
+                        case 'order_amount':
+                            detail = `سفارش بالای ${step.amount.toLocaleString()} تومان`;
+                            break;
+                        case 'order_item':
+                            detail = `سفارش ${step.item}`;
+                            break;
+                    }
+
+                    const statusClass = isDone ? 'done' : (index <= doneSteps ? 'pending' : 'locked');
+                    const statusLabel = isDone ? '✅ انجام شده' : (index <= doneSteps ? '⏳ در انتظار' : '🔒 قفل');
+
+                    stepsHtml += `
+                                <div class="step-row">
+                                    <div class="step-line-wrap">
+                                        <div class="step-circle ${isDone ? 'done' : ''}">
+                                            <span class="step-icon">${icon}</span>
+                                        </div>
+                                        ${!isLast ? `<div class="step-line ${isDone ? 'done' : ''}"></div>` : ''}
+                                    </div>
+                                    <div class="step-info">
+                                        <div class="step-label">مرحله ${index + 1} · ${label}</div>
+                                        <div class="step-value ${isDone ? 'done-text' : ''}">${detail}</div>
+                                    </div>
+                                    <span class="step-status ${statusClass}">${statusLabel}</span>
+                                </div>
+                            `;
+                });
+
+                // جایزه
+                let prizeDetail = '';
+                switch (plan.prize.type) {
+                    case 'rank':
+                        prizeDetail = `افزایش ${plan.prize.details.rank} رنک`;
+                        break;
+                    case 'discount':
+                        prizeDetail = `${plan.prize.details.percent}٪ تخفیف`;
+                        break;
+                    case 'custom':
+                        prizeDetail = plan.prize.details.text;
+                        break;
+                }
+
+                const isPrizeDone = progress >= 100;
+                stepsHtml += `
+                            <div class="step-row">
+                                <div class="step-line-wrap">
+                                    <div class="step-circle treasure">
+                                        <span class="step-icon">🎁</span>
+                                    </div>
+                                </div>
+                                <div class="step-info">
+                                    <div class="step-label" style="color:#d97706;">🎁 جایزه نهایی</div>
+                                    <div class="step-value">${prizeDetail}</div>
+                                </div>
+                                <span class="step-status ${isPrizeDone ? 'done' : 'locked'}">
+                                    ${isPrizeDone ? '✅ قابل دریافت' : '🔒 قفل'}
+                                </span>
+                            </div>
+                        `;
+
+                const tagLabels = {
+                    trend: '🔥 ترند',
+                    my: '👤 من',
+                    hot: '🌟 داغ'
+                };
+
+                const tagColors = {
+                    trend: 'trend',
+                    my: 'my',
+                    hot: 'hot'
+                };
+
+                return `
+                            <div class="plan-card ${tagColors[currentTab]} ${isExpanded ? 'expanded' : ''}" onclick="toggleExpand(${plan.id})">
+                                <div class="plan-top">
+                                    <span class="plan-icon">${plan.icon}</span>
+                                    <span class="plan-tag ${tagColors[currentTab]}">${tagLabels[currentTab]}</span>
+                                </div>
+                                <div class="plan-name">${plan.name}</div>
+                                <div class="plan-host">
+                                    🏪 <span class="host-name">${plan.host}</span>
+                                </div>
+                                <div class="plan-progress">
+                                    <div class="progress-top">
+                                        <span>پیشرفت</span>
+                                        <span class="percent">${progress}%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="fill ${tagColors[currentTab]}" style="width: ${progress}%;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- ===== مراحل (باز شده) ===== -->
+                                <div class="plan-steps-expanded ${isExpanded ? 'show' : ''}">
+                                    ${stepsHtml}
+                                </div>
+
+                                <div class="plan-footer">
+                                    <div class="plan-steps-mini">
+                                        ${miniSteps}
+                                        <span style="margin-right:4px; font-size:11px; color:#a0aec0;">
+                                            ${doneSteps}/${totalSteps}
+                                        </span>
+                                    </div>
+                                    <span class="plan-action ${isComplete ? 'complete' : ''}">
+                                        ${isComplete ? '✅ دریافت جایزه' : 'مشاهده مراحل'}
+                                        <span class="arrow ${isExpanded ? 'open' : ''}">▼</span>
+                                    </span>
+                                </div>
+                            </div>
+                        `;
+            }).join('');
+        }
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        renderPlans();
+        console.log('✅ صفحه پلن‌های مشتری بارگذاری شد');
+        console.log('📊 تعداد پلن‌ها:', {
+            trend: tabMap.trend.length,
+            my: tabMap.my.length,
+            hot: tabMap.hot.length
+        });
+    </script>
+
+</body>
+</html>

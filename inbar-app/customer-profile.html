@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>اینبار | تکمیل پروفایل مشتری</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f0f4f8 0%, #e8e4f8 100%);
+            color: #1a2332;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 540px;
+        }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 40px 32px;
+            box-shadow: 0 24px 64px rgba(108, 92, 231, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .header .logo-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-radius: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a2332;
+        }
+
+        .header h1 span {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .role-badge {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 8px 16px;
+            background: #f0f4f8;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .role-badge span {
+            font-weight: 700;
+            color: #6c5ce7;
+        }
+
+        /* ===== AVATAR ===== */
+        .avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .avatar-section .avatar-label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .avatar-section .avatar-preview {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #edeafb, #e2dcf7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #6c5ce7;
+            border: 3px dashed #d5cef0;
+            overflow: hidden;
+            flex-shrink: 0;
+            transition: all 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .avatar-section .avatar-preview:hover {
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.08);
+        }
+
+        .avatar-section .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-section .avatar-preview .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 13px;
+            font-family: 'Vazir', sans-serif;
+            opacity: 0;
+            transition: opacity 0.3s;
+            cursor: pointer;
+            border-radius: 50%;
+            gap: 2px;
+        }
+
+        .avatar-section .avatar-preview .overlay .icon {
+            font-size: 28px;
+        }
+
+        .avatar-section .avatar-preview:hover .overlay {
+            opacity: 1;
+        }
+
+        .avatar-section .avatar-hint {
+            font-size: 12px;
+            color: #a0aec0;
+            margin-top: 10px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .avatar-section input[type="file"] {
+            display: none;
+        }
+
+        /* ===== FORM ===== */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: #2d3748;
+            margin-bottom: 6px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 15px;
+            font-family: 'Vazir', sans-serif;
+            transition: all 0.3s;
+            background: #f7fafc;
+            color: #1a2332;
+            text-align: right;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.08);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .form-group select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23718096' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 14px center;
+            padding-left: 40px;
+        }
+
+        .form-group .hint {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 4px;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .form-group .hint.success {
+            color: #48bb78;
+        }
+        .form-group .hint.error {
+            color: #fc8181;
+        }
+
+        /* ===== INPUT WITH LEFT ICON ===== */
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper .left-icon {
+            position: absolute;
+            left: 14px;
+            color: #a0aec0;
+            font-size: 16px;
+            font-family: 'Vazir', sans-serif;
+            font-weight: 500;
+            pointer-events: none;
+        }
+
+        .input-wrapper input {
+            padding-left: 44px;
+            text-align: right;
+        }
+
+        /* ===== GENDER RADIO ===== */
+        .gender-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 4px;
+        }
+
+        .gender-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 400;
+            font-size: 15px;
+            color: #4a5568;
+            cursor: pointer;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .gender-group input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #6c5ce7;
+            cursor: pointer;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.25);
+            font-family: 'Vazir', sans-serif;
+            margin-top: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(108, 92, 231, 0.35);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            background: transparent;
+            color: #6c5ce7;
+            border: 2px solid #e2e8f0;
+            padding: 13px;
+            border-radius: 16px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 12px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-secondary:hover {
+            border-color: #6c5ce7;
+            background: #f8f7ff;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s ease-in-out infinite;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .auth-card {
+                padding: 24px 16px 20px;
+                border-radius: 24px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                padding: 13px;
+                font-size: 14px;
+            }
+
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                font-size: 14px;
+                padding: 10px 14px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .avatar-section .avatar-preview {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+
+            .gender-group {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="auth-card">
+
+            <div class="header">
+                <div class="logo-icon">✦</div>
+                <h1><span>اینبار</span></h1>
+                <p>تکمیل پروفایل مشتری</p>
+            </div>
+
+            <div class="role-badge">
+                👤 اطلاعات <span>شخصی</span> خود را تکمیل کنید
+            </div>
+
+            <form id="profileForm" onsubmit="handleSubmit(event)">
+
+                <!-- ===== عکس پروفایل ===== -->
+                <div class="avatar-section">
+                    <!-- <span class="avatar-label">🖼️ عکس پروفایل</span> -->
+                    <div class="avatar-preview" id="avatarPreview" onclick="document.getElementById('avatarInput').click()">
+                        <span>👤</span>
+                        <div class="overlay">
+                            <span class="icon">📷</span>
+                            انتخاب عکس
+                        </div>
+                    </div>
+                    <div class="avatar-hint">حداکثر ۵ مگابایت</div>
+                    <input type="file" id="avatarInput" accept="image/*" onchange="handleAvatarChange(event)" />
+                </div>
+
+                <!-- ===== نام کامل ===== -->
+                <div class="form-group">
+                    <label>👤 نام کامل</label>
+                    <input type="text" id="fullName" placeholder="معین حاج ابراهیمی" required />
+                </div>
+
+                <!-- ===== تاریخ تولد ===== -->
+                <div class="form-group">
+                    <label>🎂 تاریخ تولد</label>
+                    <input type="text" id="birthDate" placeholder="۱۳۷۵/۰۲/۱۵" />
+                    <div class="hint">به شمسی (مثال: ۱۳۷۵/۰۲/۱۵)</div>
+                </div>
+
+                <!-- ===== جنسیت ===== -->
+                <!-- <div class="form-group">
+                    <label>⚧️ جنسیت</label>
+                    <div class="gender-group">
+                        <label>
+                            <input type="radio" name="gender" value="male" checked />
+                            👨 مرد
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="female" />
+                            👩 زن
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="other" />
+                            🌈 سایر
+                        </label>
+                    </div>
+                </div> -->
+
+                <!-- ===== ایمیل ===== -->
+                <!-- <div class="form-group">
+                    <label>📧 ایمیل</label>
+                    <div class="input-wrapper">
+                        <span class="left-icon">@</span>
+                        <input type="email" id="email" placeholder="moin@example.com" />
+                    </div>
+                    <div class="hint">ایمیل خود را وارد کنید (اختیاری)</div>
+                </div> -->
+
+                <!-- ===== شماره موبایل (فقط نمایش) ===== -->
+                <div class="form-group">
+                    <label>📱 شماره موبایل</label>
+                    <input type="tel" id="phone" placeholder="۰۹۱۲۳۴۵۶۷۸۹" readonly style="background:#f0f4f8; color:#718096;" />
+                    <div class="hint">شماره ثبت‌شده در سیستم</div>
+                </div>
+
+                <!-- ===== شهر ===== -->
+                <div class="form-group">
+                    <label>📍 شهر</label>
+                    <select id="city">
+                        <option value="">انتخاب شهر...</option>
+                        <option value="tehran">تهران</option>
+                        <option value="mashhad">مشهد</option>
+                        <option value="isfahan">اصفهان</option>
+                        <option value="shiraz">شیراز</option>
+                        <option value="tabriz">تبریز</option>
+                        <option value="karaj">کرج</option>
+                        <option value="ahvaz">اهواز</option>
+                        <option value="rasht">رشت</option>
+                        <option value="kerman">کرمان</option>
+                        <option value="yazd">یزد</option>
+                        <option value="qom">قم</option>
+                        <option value="kermanshah">کرمانشاه</option>
+                        <option value="zanjan">زنجان</option>
+                        <option value="ardabil">اردبیل</option>
+                        <option value="bandar_abbas">بندرعباس</option>
+                    </select>
+                    <div class="hint">شهر محل سکونت خود را انتخاب کنید</div>
+                </div>
+
+                <!-- ===== کد پستی ===== -->
+                <!-- <div class="form-group">
+                    <label>📮 کد پستی</label>
+                    <input type="text" id="postalCode" placeholder="۱۲۳۴۵۶۷۸۹۰" maxlength="10" />
+                    <div class="hint">کد پستی ۱۰ رقمی</div>
+                </div> -->
+
+                <!-- ===== علاقه‌مندی‌ها ===== -->
+                <!-- <div class="form-group">
+                    <label>❤️ علاقه‌مندی‌ها</label>
+                    <textarea id="interests" placeholder="قهوه، کتاب، هنر، موسیقی..." rows="2"></textarea>
+                    <div class="hint">علاقه‌مندی‌های خود را وارد کنید</div>
+                </div> -->
+
+                <!-- ===== بیوگرافی ===== -->
+                <div class="form-group">
+                    <label>📝 بیوگرافی</label>
+                    <textarea id="bio" placeholder="درباره خودت بگو..." rows="3"></textarea>
+                    <div class="hint">یک معرفی کوتاه از خودتان</div>
+                </div>
+
+                <button type="submit" class="btn-primary" id="submitBtn">
+                    ✅ تکمیل پروفایل
+                </button>
+            </form>
+
+            <a href="otp.html?role=customer" class="btn-secondary" style="margin-top:14px;">
+                ← بازگشت
+            </a>
+
+        </div>
+    </div>
+
+    <script>
+        // ================================================================
+        //  STATE
+        // ================================================================
+        let avatarFile = null;
+
+        // ================================================================
+        //  DOM REFS
+        // ================================================================
+        const profileForm = document.getElementById('profileForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const avatarPreview = document.getElementById('avatarPreview');
+
+        // ================================================================
+        //  AVATAR HANDLING
+        // ================================================================
+        function handleAvatarChange(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.size > 5 * 1024 * 1024) {
+                alert('حجم عکس نباید بیشتر از ۵ مگابایت باشد');
+                e.target.value = '';
+                return;
+            }
+
+            avatarFile = file;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                avatarPreview.innerHTML = `
+                            <img src="${event.target.result}" alt="عکس پروفایل" />
+                            <div class="overlay" onclick="document.getElementById('avatarInput').click()">
+                                <span class="icon">📷</span>
+                                تغییر عکس
+                            </div>
+                        `;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ================================================================
+        //  LOAD PHONE FROM localStorage (mock)
+        // ================================================================
+        function loadPhoneNumber() {
+            // از localStorage یا پارامتر URL دریافت کن
+            const userData = localStorage.getItem('customerUser');
+            if (userData) {
+                try {
+                    const data = JSON.parse(userData);
+                    document.getElementById('phone').value = data.phone || '۰۹۱۲۳۴۵۶۷۸۹';
+                } catch {
+                    document.getElementById('phone').value = '۰۹۱۲۳۴۵۶۷۸۹';
+                }
+            } else {
+                // مقدار پیش‌فرض
+                document.getElementById('phone').value = '۰۹۱۲۳۴۵۶۷۸۹';
+            }
+        }
+
+        // ================================================================
+        //  HANDLE SUBMIT
+        // ================================================================
+        function handleSubmit(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const birthDate = document.getElementById('birthDate').value.trim();
+            const gender = document.querySelector('input[name="gender"]:checked')?.value || '';
+            const email = document.getElementById('email').value.trim();
+            const city = document.getElementById('city').value;
+            const postalCode = document.getElementById('postalCode').value.trim();
+            const interests = document.getElementById('interests').value.trim();
+            const bio = document.getElementById('bio').value.trim();
+
+            // اعتبارسنجی
+            if (!fullName) {
+                alert('لطفاً نام کامل خود را وارد کنید');
+                return;
+            }
+
+            if (fullName.length < 3) {
+                alert('نام کامل باید حداقل ۳ کاراکتر باشد');
+                return;
+            }
+
+            // اعتبارسنجی کد پستی
+            if (postalCode && !/^\d{10}$/.test(postalCode)) {
+                alert('کد پستی باید ۱۰ رقم باشد');
+                return;
+            }
+
+            const profileData = {
+                fullName,
+                birthDate,
+                gender,
+                email,
+                city,
+                postalCode,
+                interests,
+                bio,
+                hasAvatar: !!avatarFile,
+                completedAt: new Date().toISOString()
+            };
+
+            console.log('✅ پروفایل مشتری تکمیل شد:', profileData);
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span> در حال ذخیره...';
+
+            setTimeout(() => {
+                localStorage.setItem('customerProfile', JSON.stringify(profileData));
+                alert('🎉 پروفایل شما با موفقیت تکمیل شد!');
+                // window.location.href = '/customer/dashboard';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '✅ تکمیل پروفایل';
+            }, 1200);
+        }
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        loadPhoneNumber();
+
+        console.log('✅ صفحه تکمیل پروفایل مشتری بارگذاری شد');
+    </script>
+
+</body>
+</html>

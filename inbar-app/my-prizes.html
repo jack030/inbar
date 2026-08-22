@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>اینبار | جوایز</title>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Vazir', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #1a2332;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 16px 16px 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-left .back-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f4f8;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #1a2332;
+        }
+
+        .header-left .back-btn:hover {
+            background: #e8e4f8;
+        }
+
+        .header-left h1 {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .header-left h1 span {
+            color: #6c5ce7;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-actions .icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f0f4f8;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .header-actions .icon-btn:hover {
+            background: #e8e4f8;
+        }
+
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: 6px;
+            margin: 16px 0 20px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 4px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tabs .tab {
+            flex: 1;
+            min-width: 80px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazir', sans-serif;
+            background: transparent;
+            color: #a0aec0;
+            white-space: nowrap;
+        }
+
+        .tabs .tab.active {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(108, 92, 231, 0.2);
+        }
+
+        .tabs .tab:hover:not(.active) {
+            background: #f0f4f8;
+            color: #4a5568;
+        }
+
+        .tabs .tab .tab-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0 8px;
+            border-radius: 50px;
+            font-size: 10px;
+            margin-right: 4px;
+        }
+
+        .tabs .tab.active .tab-badge {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* ===== PRIZE CARDS ===== */
+        .prize-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .prize-card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 16px 18px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prize-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .prize-card.trend::before {
+            background: linear-gradient(180deg, #fc8181, #f56565);
+        }
+
+        .prize-card.new::before {
+            background: linear-gradient(180deg, #48bb78, #38a169);
+        }
+
+        .prize-card.my::before {
+            background: linear-gradient(180deg, #6c5ce7, #a29bfe);
+        }
+
+        .prize-card.host::before {
+            background: linear-gradient(180deg, #f6ad55, #ed8936);
+        }
+
+        .prize-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(108, 92, 231, 0.06);
+            border-color: #e2e8f0;
+        }
+
+        .prize-card .prize-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+
+        .prize-card .prize-icon {
+            font-size: 32px;
+        }
+
+        .prize-card .prize-tag {
+            font-size: 10px;
+            padding: 2px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .prize-card .prize-tag.trend {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .prize-card .prize-tag.new {
+            background: #d1fae5;
+            color: #059669;
+        }
+
+        .prize-card .prize-tag.my {
+            background: #edeafb;
+            color: #6c5ce7;
+        }
+
+        .prize-card .prize-tag.host {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .prize-card .prize-name {
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 2px;
+        }
+
+        .prize-card .prize-host {
+            font-size: 13px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .prize-card .prize-host .host-name {
+            color: #1a2332;
+            font-weight: 500;
+        }
+
+        .prize-card .prize-progress {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .prize-card .prize-progress .progress-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            margin-bottom: 4px;
+        }
+
+        .prize-card .prize-progress .progress-top .percent {
+            font-weight: 700;
+            color: #6c5ce7;
+        }
+
+        .prize-card .prize-progress .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #f0f4f8;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .prize-card .prize-progress .progress-bar .fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.8s ease;
+        }
+
+        .prize-card .prize-progress .progress-bar .fill.trend {
+            background: linear-gradient(90deg, #fc8181, #f56565);
+        }
+
+        .prize-card .prize-progress .progress-bar .fill.new {
+            background: linear-gradient(90deg, #48bb78, #38a169);
+        }
+
+        .prize-card .prize-progress .progress-bar .fill.my {
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+        }
+
+        .prize-card .prize-progress .progress-bar .fill.host {
+            background: linear-gradient(90deg, #f6ad55, #ed8936);
+        }
+
+        .prize-card .prize-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #a0aec0;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .prize-card .prize-footer .prize-steps {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .prize-card .prize-footer .prize-steps .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+
+        .prize-card .prize-footer .prize-steps .dot.done {
+            background: #6c5ce7;
+        }
+
+        .prize-card .prize-footer .prize-steps .dot.treasure {
+            background: #f6ad55;
+        }
+
+        .prize-card .prize-footer .prize-action {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6c5ce7;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            background: #fff;
+            border-radius: 20px;
+            border: 2px dashed #e2e8f0;
+        }
+
+        .empty-state .empty-icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .empty-state .empty-title {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .empty-state .empty-desc {
+            font-size: 14px;
+            color: #718096;
+            font-family: 'Vazir', sans-serif;
+            margin-top: 4px;
+        }
+
+        /* ===== BOTTOM NAV ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            padding: 6px 0 10px;
+            z-index: 200;
+        }
+
+        .bottom-nav .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            background: transparent;
+            border: none;
+            font-family: 'Vazir', sans-serif;
+            position: relative;
+        }
+
+        .bottom-nav .nav-item .nav-icon {
+            font-size: 22px;
+            transition: transform 0.2s;
+        }
+
+        .bottom-nav .nav-item .nav-label {
+            font-size: 10px;
+            color: #a0aec0;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .bottom-nav .nav-item.active .nav-label {
+            color: #6c5ce7;
+            font-weight: 700;
+        }
+
+        .bottom-nav .nav-item.active .nav-icon {
+            transform: scale(1.1);
+        }
+
+        .bottom-nav .nav-item.active {
+            background: #f0f4f8;
+        }
+
+        .bottom-nav .nav-item .nav-badge {
+            position: absolute;
+            top: 0;
+            right: 2px;
+            background: #fc8181;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Vazir', sans-serif;
+        }
+
+        .bottom-nav .nav-item.scan-btn {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -14px;
+            box-shadow: 0 4px 20px rgba(108, 92, 231, 0.3);
+            padding: 0;
+        }
+
+        .bottom-nav .nav-item.scan-btn .nav-icon {
+            font-size: 26px;
+            color: #fff;
+        }
+
+        .bottom-nav .nav-item.scan-btn .nav-label {
+            display: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 12px 10px;
+            }
+
+            .header-left h1 {
+                font-size: 16px;
+            }
+
+            .tabs {
+                gap: 4px;
+                margin: 12px 0 16px;
+            }
+
+            .tabs .tab {
+                font-size: 12px;
+                padding: 6px 10px;
+                min-width: 60px;
+            }
+
+            .prize-card {
+                padding: 14px 14px;
+            }
+
+            .prize-card .prize-icon {
+                font-size: 28px;
+            }
+
+            .prize-card .prize-name {
+                font-size: 14px;
+            }
+
+            .bottom-nav .nav-item {
+                padding: 2px 8px;
+            }
+
+            .bottom-nav .nav-item .nav-icon {
+                font-size: 20px;
+            }
+
+            .bottom-nav .nav-item .nav-label {
+                font-size: 9px;
+            }
+
+            .bottom-nav .nav-item.scan-btn {
+                width: 44px;
+                height: 44px;
+                margin-top: -10px;
+            }
+
+            .bottom-nav .nav-item.scan-btn .nav-icon {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="header-top">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='customer-home.html'">→</button>
+                <h1>🎁 <span>جوایز</span></h1>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" onclick="alert('جستجوی جوایز')">🔍</button>
+                <button class="icon-btn" onclick="alert('فیلتر')">⚙️</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <div class="container">
+
+        <!-- ===== TABS ===== -->
+        <div class="tabs">
+            <button class="tab active" data-tab="trend" onclick="switchTab('trend')">
+                🔥 ترند
+                <span class="tab-badge">۴</span>
+            </button>
+            <button class="tab" data-tab="host" onclick="switchTab('host')">
+                🏪 میزبان‌ها
+                <span class="tab-badge">۶</span>
+            </button>
+            <button class="tab" data-tab="new" onclick="switchTab('new')">
+                ✨ جدید
+                <span class="tab-badge">۳</span>
+            </button>
+            <button class="tab" data-tab="my" onclick="switchTab('my')">
+                👤 جوایز من
+                <span class="tab-badge">۵</span>
+            </button>
+        </div>
+
+        <!-- ===== PRIZE LIST ===== -->
+        <div class="prize-list" id="prizeList">
+            <!-- توسط JS پر میشه -->
+        </div>
+
+    </div>
+
+    <!-- ===== BOTTOM NAV ===== -->
+    <div class="bottom-nav">
+        <button class="nav-item" onclick="window.location.href='customer-home.html'">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">خانه</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='my-plans-customer.html'">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">پلن‌ها</span>
+        </button>
+        <button class="nav-item scan-btn" onclick="window.location.href='scan.html'">
+            <span class="nav-icon">📸</span>
+            <span class="nav-label">اسکن</span>
+        </button>
+        <button class="nav-item active" onclick="window.location.href='my-prizes.html'">
+            <span class="nav-icon">🎁</span>
+            <span class="nav-label">جوایز</span>
+            <span class="nav-badge">۲</span>
+        </button>
+        <button class="nav-item" onclick="window.location.href='my-profile-customer.html'">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">پروفایل</span>
+        </button>
+    </div>
+
+    <script>
+        // ================================================================
+        //  DATA
+        // ================================================================
+
+        // جوایز ترند (داغ)
+        const trendPrizes = [{
+            id: 1,
+            icon: '☕',
+            name: 'قهوه اسپرسو ویژه',
+            host: 'کافه میزبان',
+            progress: 78,
+            steps: 5,
+            done: 4,
+            tag: '🔥 ترند',
+            tagType: 'trend'
+        }, {
+            id: 2,
+            icon: '🍰',
+            name: 'کیک روز تولد',
+            host: 'کافه هنر',
+            progress: 62,
+            steps: 4,
+            done: 3,
+            tag: '🔥 ترند',
+            tagType: 'trend'
+        }, {
+            id: 3,
+            icon: '🎵',
+            name: 'بلیت کنسرت ماه',
+            host: 'کافه شب',
+            progress: 45,
+            steps: 6,
+            done: 3,
+            tag: '🔥 ترند',
+            tagType: 'trend'
+        }, {
+            id: 4,
+            icon: '📖',
+            name: 'کتاب هنر',
+            host: 'کافه کتاب',
+            progress: 90,
+            steps: 3,
+            done: 3,
+            tag: '🔥 ترند',
+            tagType: 'trend'
+        }];
+
+        // جوایز میزبان‌ها
+        const hostPrizes = [{
+            id: 5,
+            icon: '☕',
+            name: 'قهوه رایگان',
+            host: 'کافه میزبان',
+            progress: 100,
+            steps: 3,
+            done: 3,
+            tag: '🏪 میزبان',
+            tagType: 'host'
+        }, {
+            id: 6,
+            icon: '🎁',
+            name: 'بسته غافلگیری',
+            host: 'کافه میزبان',
+            progress: 30,
+            steps: 5,
+            done: 2,
+            tag: '🏪 میزبان',
+            tagType: 'host'
+        }, {
+            id: 7,
+            icon: '🍰',
+            name: 'دسر ویژه',
+            host: 'کافه آرامش',
+            progress: 55,
+            steps: 4,
+            done: 2,
+            tag: '🏪 میزبان',
+            tagType: 'host'
+        }, {
+            id: 8,
+            icon: '🎨',
+            name: 'کارگاه نقاشی',
+            host: 'کافه هنر',
+            progress: 20,
+            steps: 6,
+            done: 1,
+            tag: '🏪 میزبان',
+            tagType: 'host'
+        }, {
+            id: 9,
+            icon: '🌿',
+            name: 'گلدان گیاه',
+            host: 'کافه آفتاب',
+            progress: 85,
+            steps: 3,
+            done: 3,
+            tag: '🏪 میزبان',
+            tagType: 'host'
+        }, {
+            id: 10,
+            icon: '🎵',
+            name: 'شب موسیقی زنده',
+            host: 'کافه شب',
+            progress: 40,
+            steps: 5,
+            done: 2,
+            tag: '🏪 میزبان',
+            tagType: 'host'
+        }];
+
+        // جوایز جدید
+        const newPrizes = [{
+            id: 11,
+            icon: '✨',
+            name: 'جایزه ویژه نوروز',
+            host: 'کافه میزبان',
+            progress: 15,
+            steps: 4,
+            done: 1,
+            tag: '✨ جدید',
+            tagType: 'new'
+        }, {
+            id: 12,
+            icon: '🎭',
+            name: 'بلیت تئاتر',
+            host: 'کافه هنر',
+            progress: 5,
+            steps: 6,
+            done: 0,
+            tag: '✨ جدید',
+            tagType: 'new'
+        }, {
+            id: 13,
+            icon: '📚',
+            name: 'جایزه کتابخوان',
+            host: 'کافه کتاب',
+            progress: 10,
+            steps: 3,
+            done: 0,
+            tag: '✨ جدید',
+            tagType: 'new'
+        }];
+
+        // جوایز من (با درصد تکمیل)
+        const myPrizes = [{
+            id: 14,
+            icon: '☕',
+            name: 'قهوه اسپرسو',
+            host: 'کافه میزبان',
+            progress: 78,
+            steps: 5,
+            done: 4,
+            tag: '👤 من',
+            tagType: 'my'
+        }, {
+            id: 15,
+            icon: '🎁',
+            name: 'بسته ویژه',
+            host: 'کافه آرامش',
+            progress: 45,
+            steps: 4,
+            done: 2,
+            tag: '👤 من',
+            tagType: 'my'
+        }, {
+            id: 16,
+            icon: '📖',
+            name: 'دفترچه یادداشت',
+            host: 'کافه کتاب',
+            progress: 100,
+            steps: 3,
+            done: 3,
+            tag: '👤 من',
+            tagType: 'my'
+        }, {
+            id: 17,
+            icon: '🎵',
+            name: 'بلیت کنسرت',
+            host: 'کافه شب',
+            progress: 60,
+            steps: 6,
+            done: 4,
+            tag: '👤 من',
+            tagType: 'my'
+        }, {
+            id: 18,
+            icon: '🍰',
+            name: 'کیک ویژه',
+            host: 'کافه هنر',
+            progress: 30,
+            steps: 4,
+            done: 1,
+            tag: '👤 من',
+            tagType: 'my'
+        }];
+
+        // ================================================================
+        //  STATE
+        // ================================================================
+        let currentTab = 'trend';
+
+        const allData = {
+            trend: trendPrizes,
+            host: hostPrizes,
+            new: newPrizes,
+            my: myPrizes
+        };
+
+        // ================================================================
+        //  SWITCH TAB
+        // ================================================================
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tabs .tab').forEach(el => {
+                el.classList.toggle('active', el.dataset.tab === tab);
+            });
+            renderPrizes();
+        }
+
+        // ================================================================
+        //  RENDER PRIZES
+        // ================================================================
+        function renderPrizes() {
+            const container = document.getElementById('prizeList');
+            const prizes = allData[currentTab] || [];
+
+            // آپدیت شمارنده‌ها
+            document.querySelectorAll('.tabs .tab').forEach(el => {
+                const tab = el.dataset.tab;
+                const count = allData[tab]?.length || 0;
+                const badge = el.querySelector('.tab-badge');
+                if (badge) badge.textContent = count;
+            });
+
+            if (prizes.length === 0) {
+                container.innerHTML = `
+                            <div class="empty-state">
+                                <span class="empty-icon">🎁</span>
+                                <div class="empty-title">هیچ جایزه‌ای وجود ندارد</div>
+                                <div class="empty-desc">به زودی جوایز جدید اضافه می‌شوند</div>
+                            </div>
+                        `;
+                return;
+            }
+
+            container.innerHTML = prizes.map(prize => {
+                const progress = prize.progress || 0;
+                const isComplete = progress >= 100;
+
+                // دایره‌های مراحل
+                let stepsHtml = '';
+                for (let i = 0; i < prize.steps; i++) {
+                    const isDone = i < prize.done;
+                    const isLast = i === prize.steps - 1;
+                    stepsHtml += `
+                                <div class="dot ${isDone ? 'done' : ''}"></div>
+                                ${!isLast ? '' : ''}
+                            `;
+                }
+                // جایزه
+                stepsHtml += `<div class="dot treasure"></div>`;
+
+                const tagLabels = {
+                    trend: '🔥 ترند',
+                    host: '🏪 میزبان',
+                    new: '✨ جدید',
+                    my: '👤 من'
+                };
+
+                const tagColors = {
+                    trend: 'trend',
+                    host: 'host',
+                    new: 'new',
+                    my: 'my'
+                };
+
+                return `
+                            <div class="prize-card ${tagColors[currentTab]}" onclick="alert('رفتن به صفحه جایزه: ${prize.name}')">
+                                <div class="prize-top">
+                                    <span class="prize-icon">${prize.icon}</span>
+                                    <span class="prize-tag ${tagColors[currentTab]}">${tagLabels[currentTab]}</span>
+                                </div>
+                                <div class="prize-name">${prize.name}</div>
+                                <div class="prize-host">
+                                    🏪 <span class="host-name">${prize.host}</span>
+                                </div>
+                                <div class="prize-progress">
+                                    <div class="progress-top">
+                                        <span>پیشرفت</span>
+                                        <span class="percent">${progress}%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="fill ${tagColors[currentTab]}" style="width: ${progress}%;"></div>
+                                    </div>
+                                </div>
+                                <div class="prize-footer">
+                                    <div class="prize-steps">
+                                        ${stepsHtml}
+                                        <span style="margin-right:4px; font-size:11px; color:#a0aec0;">
+                                            ${prize.done}/${prize.steps}
+                                        </span>
+                                    </div>
+                                    <span class="prize-action">
+                                        ${isComplete ? '✅ دریافت' : 'مشاهده'}
+                                    </span>
+                                </div>
+                            </div>
+                        `;
+            }).join('');
+        }
+
+        // ================================================================
+        //  INIT
+        // ================================================================
+        renderPrizes();
+        console.log('✅ صفحه جوایز مشتری بارگذاری شد');
+        console.log('📊 تعداد جوایز:', {
+            trend: trendPrizes.length,
+            host: hostPrizes.length,
+            new: newPrizes.length,
+            my: myPrizes.length
+        });
+    </script>
+
+</body>
+</html>
